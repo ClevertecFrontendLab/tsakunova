@@ -1,10 +1,11 @@
-import { FC, useMemo } from 'react';
+import { FC, useCallback, useMemo } from 'react';
 import { CoverCat } from 'assets/icons';
 import { PrimaryButton } from 'components/buttons/primary-button';
 import { BookSlider } from 'components/slider';
 import { BookSectionTitle } from 'types/enum';
 import { FullBookDTO } from 'types/types';
 import { getButtonStyles } from 'utils/get-button-styles';
+import { getImageURL } from 'utils/get-image-url';
 import { keyExtractor } from 'utils/key-extractor';
 
 import { BookSectionLayout } from '../book-section-layout';
@@ -25,27 +26,28 @@ type BookAboutProps = {
 };
 
 export const BookAbout: FC<BookAboutProps> = ({
-  book: { author, title, imageLink, about, isBooked, bookedTill, publishingYear },
+  book: { authors, title, images, description, booking, issueYear },
   onBookedButtonPress,
 }) => {
-  const { buttonType, buttonTitle } = getButtonStyles(isBooked, bookedTill!);
+  const { buttonType, buttonTitle } = getButtonStyles(booking?.order, booking?.dateOrder);
 
   const getImagesSection = useMemo(() => {
-    if (!imageLink?.length)
+    if (!images?.length)
       return (
         <ImageContainer>
           <CoverCat />
         </ImageContainer>
       );
 
-    return imageLink.length > 1 ? (
-      <BookSlider images={imageLink} />
+    return images.length > 1 ? (
+      <BookSlider images={images} />
     ) : (
       <ImageContainer>
-        <img alt={title} src={imageLink[0]} />
+        <img alt={title} src={getImageURL(images[0].url)} />
       </ImageContainer>
     );
-  }, [imageLink, title]);
+  }, [images, title]);
+  const renderAuthors = useCallback(() => authors?.map((item) => <span>{item}</span>), [authors]);
 
   return (
     <BookAboutContainer>
@@ -53,21 +55,21 @@ export const BookAbout: FC<BookAboutProps> = ({
       <ContentContainer>
         <h3>{title}</h3>
         <AboutAuthor>
-          {author}, {publishingYear}
+          {renderAuthors()}, {issueYear}
         </AboutAuthor>
         <ButtonContainer>
           <PrimaryButton
             stylesClass='buttonOnBookPage'
             type={buttonType}
             title={buttonTitle}
-            disabled={isBooked && !!bookedTill}
+            disabled={booking?.order && !!booking.dateOrder}
           />
         </ButtonContainer>
       </ContentContainer>
 
       <DescriptionSection>
         <BookSectionLayout title={BookSectionTitle.about}>
-          {about.split('\n').map((item, index) => (
+          {description?.split('\n').map((item, index) => (
             <ContentBook key={`content-${keyExtractor(index)}`}>{item}</ContentBook>
           ))}
         </BookSectionLayout>

@@ -3,6 +3,7 @@ import { commentsNoAvatar } from 'assets/images';
 import { AvatarImg } from 'components/avatar-img';
 import { BookRating } from 'components/book-rating';
 import { CommentDTO } from 'types/types';
+import { getImageURL } from 'utils/get-image-url';
 
 import { CommentContainer, CommentText, DateAndName, ShortInfoContainer } from './comment-item.styles';
 
@@ -11,7 +12,7 @@ type CommentProps = {
 };
 
 export const BookCommentItem: FC<CommentProps> = ({ comment }) => {
-  const date = new Date(comment.publishAt).toLocaleDateString('ru', {
+  const date = new Date(comment.createdAt).toLocaleDateString('ru', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -20,16 +21,19 @@ export const BookCommentItem: FC<CommentProps> = ({ comment }) => {
   return (
     <CommentContainer>
       <ShortInfoContainer>
-        <AvatarImg size='32px' bgImage={comment.avatarPath ? comment.avatarPath : commentsNoAvatar} />
+        <AvatarImg
+          size='32px'
+          bgImage={comment.user.avatarUrl ? getImageURL(comment.user.avatarUrl) : commentsNoAvatar}
+        />
         <DateAndName>
           <p>
-            {comment.firstName} {comment.lastName}
+            {comment.user.firstName} {comment.user.lastName}
           </p>
           <p>{date}</p>
         </DateAndName>
       </ShortInfoContainer>
       <BookRating rating={comment.rating} stylesClass='ratingInComments' />
-      {comment.comment && <CommentText>{comment.comment}</CommentText>}
+      {comment.text && <CommentText>{comment.text}</CommentText>}
     </CommentContainer>
   );
 };

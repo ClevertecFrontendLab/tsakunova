@@ -4,6 +4,8 @@ import { NavMenuType } from 'types/types';
 
 export const DEFAULT_WIDTH = 1440;
 
+export const BASE_IMAGES_URL = 'https://strapi.cleverland.by';
+
 export const sizes = {
   tablet: 650,
   laptop: 1120,
@@ -26,78 +28,7 @@ export const NAVIGATION_MENU_LIST: NavMenuType[] = [
       testId: RouteTestId.all,
       route: RouteNames.booksAll,
       listTitle: 'Все книги',
-      items: [
-        {
-          name: 'Бизнес-книги',
-          category: BookCategory.business,
-          count: 14,
-        },
-        {
-          name: 'Детективы',
-          category: BookCategory.detective,
-          count: 8,
-        },
-        {
-          name: 'Детские книги',
-          category: BookCategory.kids,
-          count: 14,
-        },
-        {
-          name: 'Зарубежная литература',
-          category: BookCategory.foreign,
-          count: 2,
-        },
-        {
-          name: 'История',
-          category: BookCategory.history,
-          count: 5,
-        },
-        {
-          name: 'Классическая литература',
-          category: BookCategory.classic,
-          count: 12,
-        },
-        {
-          name: 'Книги по психологии',
-          category: BookCategory.psy,
-          count: 11,
-        },
-        {
-          name: 'Компьютерная литература',
-          category: BookCategory.computer,
-          count: 54,
-        },
-        {
-          name: 'Культура и искусство',
-          category: BookCategory.art,
-          count: 5,
-        },
-        {
-          name: 'Наука и образование',
-          category: BookCategory.science,
-          count: 2,
-        },
-        {
-          name: 'Публицистическая литература',
-          category: BookCategory.public,
-          count: 0,
-        },
-        {
-          name: 'Справочники',
-          category: BookCategory.handbook,
-          count: 10,
-        },
-        {
-          name: 'Фантастика',
-          category: BookCategory.fantasy,
-          count: 12,
-        },
-        {
-          name: 'Юмористическая литература',
-          category: BookCategory.humor,
-          count: 8,
-        },
-      ],
+      items: [],
     },
   },
   {

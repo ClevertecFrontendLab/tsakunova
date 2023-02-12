@@ -80,6 +80,10 @@ export const ListAbout = styled.div`
   }
   p {
     font: ${(props) => props.theme.fonts.bodyLarge};
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
     @media ${devices.tablet} {
       font: ${(props) => props.theme.fonts.bodySubtitle};
     }

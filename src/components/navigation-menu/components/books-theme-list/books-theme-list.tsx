@@ -1,5 +1,9 @@
 import { FC, useCallback, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { useAppDispatch } from 'hooks/use-app-dispatch';
+import { useOnMount } from 'hooks/use-on-mount';
+import { useTypedSelector } from 'hooks/use-typed-selector';
+import { fetchCategories } from 'store/categories/categories-actions';
 import { RouteNames, TestIdType } from 'types/enum';
 import { NavMenuItemList } from 'types/types';
 
@@ -14,6 +18,12 @@ export const BooksThemeList: FC<{
   onPressCategory: (e: React.SyntheticEvent) => void;
 }> = ({ list, isBurgerMenu, isListOpen, onPressCategory }) => {
   const { pathname } = useLocation();
+  const dispatch = useAppDispatch();
+  const categories = useTypedSelector((state) => state.categories.categories);
+
+  useOnMount(() => {
+    dispatch(fetchCategories());
+  });
 
   const getLinkStyle = useCallback(
     (isActive: boolean) => (isActive || pathname === '/' || pathname === `/${RouteNames.books}` ? 'active' : undefined),
@@ -21,8 +31,8 @@ export const BooksThemeList: FC<{
   );
 
   const renderItem = useCallback(
-    () => list?.items.map((item) => <BooksThemeListItem item={item} onPress={onPressCategory} key={item.category} />),
-    [list?.items, onPressCategory]
+    () => categories.map((item) => <BooksThemeListItem item={item} onPress={onPressCategory} key={item.id} />),
+    [categories, onPressCategory]
   );
 
   const testId = useMemo(

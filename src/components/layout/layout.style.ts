@@ -1,4 +1,5 @@
 import { devices } from 'consts';
+import { Wrapper } from 'index.style';
 import styled from 'styled-components';
 
 export const Container = styled.div<{ isOpenMenu: boolean }>`
@@ -35,4 +36,8 @@ export const Overlay = styled.div<{ isShowMenu: boolean }>`
   z-index: 5;
   height: ${(props) => props.isShowMenu && '100vh'};
   background-color: ${(props) => props.isShowMenu && props.theme.color.main.dark30};
+`;
+
+export const MainWrapper = styled(Wrapper)`
+  flex: 1;
 `;

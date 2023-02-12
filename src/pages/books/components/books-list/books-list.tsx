@@ -1,13 +1,13 @@
 import { FC, useMemo } from 'react';
 import { ViewVariant } from 'types/enum';
-import { FullBookDTO } from 'types/types';
+import { MainBookDTO } from 'types/types';
 
 import { BookCard } from '../book-card';
 
 import { ListView, WindowView } from './books-list.style';
 
 type BooksListProps = {
-  books: FullBookDTO[];
+  books: MainBookDTO[];
   view: ViewVariant;
 };
 
@@ -16,7 +16,7 @@ export const BookList: FC<BooksListProps> = ({ books, view }) => {
 
   return (
     <ViewContainer className={view}>
-      {books.map((book: FullBookDTO) => (
+      {books.map((book: MainBookDTO) => (
         <BookCard key={book.id} view={view} book={book} />
       ))}
     </ViewContainer>

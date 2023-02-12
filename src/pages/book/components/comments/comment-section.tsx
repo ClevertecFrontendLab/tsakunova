@@ -12,7 +12,7 @@ type CommentsSectionProps = {
 };
 
 export const CommentsSection: FC<CommentsSectionProps> = ({ comments }) => (
-  <BookSectionLayout isPadding={true} title={BookSectionTitle.comments} details={comments.length} withArrow={true}>
+  <BookSectionLayout isPadding={true} title={BookSectionTitle.comments} details={comments?.length} withArrow={true}>
     <SectionContainer>
       <CommentsList comments={comments} />
     </SectionContainer>

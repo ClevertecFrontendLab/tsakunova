@@ -18,7 +18,7 @@ export const BookImage = styled.div`
   align-items: center;
 
   img {
-    height: 100%;
-    width: auto;
+    height: auto;
+    width: 100%;
   }
 `;

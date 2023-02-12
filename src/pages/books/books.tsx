@@ -1,21 +1,21 @@
 import { FC, useCallback, useState } from 'react';
+import { useAppDispatch } from 'hooks/use-app-dispatch';
 import { useOnMount } from 'hooks/use-on-mount';
+import { useTypedSelector } from 'hooks/use-typed-selector';
+import { fetchBooks } from 'store/books/books-actions';
 import { ViewVariant } from 'types/enum';
-import { FullBookDTO } from 'types/types';
 
 import { BookList } from './components/books-list';
 import { FilterList } from './components/filter-list/filter-list';
 import { Container, HomeContainer } from './books.style';
-import { getBooksList } from './utils';
 
 export const Books: FC = () => {
-  const [booksList, setBooksList] = useState<FullBookDTO[] | undefined>([]);
+  const dispatch = useAppDispatch();
+  const booksList = useTypedSelector((state) => state.books.books);
   const [activeView, setActiveView] = useState<ViewVariant>(ViewVariant.window);
 
   useOnMount(async () => {
-    const books = await getBooksList();
-
-    setBooksList(books);
+    dispatch(fetchBooks());
   });
 
   const activeViewHandler = useCallback((type: ViewVariant) => {
@@ -26,7 +26,7 @@ export const Books: FC = () => {
     <Container>
       <HomeContainer>
         <FilterList onViewClick={activeViewHandler} typeView={activeView} />
-        <BookList books={booksList!} view={activeView} />
+        <BookList books={booksList} view={activeView} />
       </HomeContainer>
     </Container>
   );

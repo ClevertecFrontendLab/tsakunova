@@ -8,6 +8,10 @@ export const theme = {
       dark30: 'rgba(54, 54, 54, 0.3)',
       hover: 'FF740F',
     },
+    chips: {
+      negative: '#FEEBEA',
+      borderNegative: '1.5px solid #F42C4F',
+    },
     grey: {
       black40: '#A7A7A7',
       black10: '#EBEBEB',

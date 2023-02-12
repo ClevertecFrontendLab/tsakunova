@@ -1,4 +1,4 @@
-import { BookCategory, RouteNames, RouteTestId } from './enum';
+import { RouteNames, RouteTestId } from './enum';
 
 export type UserDTO = {
   name: string;
@@ -8,11 +8,7 @@ export type NavMenuItemList = {
   listTitle: string;
   testId: RouteTestId;
   route: RouteNames;
-  items: Array<{
-    name: string;
-    count: number;
-    category: BookCategory;
-  }>;
+  items: CategoriesDTO[];
 };
 
 export type NavMenuType = {
@@ -23,35 +19,98 @@ export type NavMenuType = {
   list?: NavMenuItemList;
 };
 
-export type FullBookDTO = {
-  id?: number;
-  category: BookCategory;
+export type CategoriesDTO = {
+  name: string;
+  id: number;
+  path: string;
+};
+
+export type ImagesType = {
+  url: string;
+};
+
+export type MainBookDTO = {
+  issueYear?: number;
+  rating?: number;
   title: string;
-  imageLink?: string[];
-  author: string;
-  about: string;
+  authors?: string[];
+  image?: ImagesType;
+  categories?: string[];
+  id: number;
+  booking?: {
+    id: number;
+    order: boolean;
+    dateOrder?: string;
+    customerId?: number;
+    customerFirstName?: string;
+    customerLastName?: string;
+  };
+  delivery?: {
+    id: number;
+    handed: boolean;
+    dateHandedFrom?: string;
+    dateHandedTo?: string;
+    recipientId?: number;
+    recipientFirstName?: string;
+    recipientLastName?: string;
+  };
+  histories?: Array<{
+    id?: number;
+    userId?: number;
+  }>;
+};
+
+export type FullBookDTO = {
+  id: number;
+  categories: string[];
+  title: string;
+  images: ImagesType[];
+  authors: string[];
+  description: string;
   rating: number;
-  isBooked: boolean;
-  bookedTill?: string;
-  publishingOffice?: string;
-  publishingYear?: number;
+  publish?: string;
+  issueYear?: number;
   pages?: number;
-  restrictions?: string;
   cover?: string;
   format?: string;
-  genre?: string;
-  weight?: number;
+  weight?: string;
   ISBN?: string;
   producer?: string;
+  comments: CommentDTO[];
+  booking?: {
+    id: number;
+    order: boolean;
+    dateOrder?: string;
+    customerId?: number;
+    customerFirstName?: string;
+    customerLastName?: string;
+  };
+  delivery?: {
+    id: number;
+    handed: boolean;
+    dateHandedFrom?: string;
+    dateHandedTo?: string;
+    recipientId?: number;
+    recipientFirstName?: string;
+    recipientLastName?: string;
+  };
+  histories?: Array<{
+    id?: number;
+    userId?: number;
+  }>;
 };
 
 export type CommentDTO = {
-  avatarPath?: string;
-  firstName: string;
-  lastName: string;
-  publishAt: string;
+  id: number;
   rating: number;
-  comment?: string;
+  text?: string;
+  createdAt: string;
+  user: {
+    commentUserId: number;
+    firstName: string;
+    lastName: string;
+    avatarUrl?: string;
+  };
 };
 
 export type StyledEndpoints = {

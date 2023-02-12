@@ -1,7 +1,6 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NAVIGATION_MENU_LIST } from 'consts';
-import { useOnClickOutside } from 'hooks/use-on-click-outside';
 import { useOnMount } from 'hooks/use-on-mount';
 import { RouteNames } from 'types/enum';
 
