@@ -28,7 +28,7 @@ const routes = createHashRouter([
         element: <Books />,
       },
       {
-        path: '/books/all/:bookId',
+        path: '/books/:category/:bookId',
         element: <BookPage />,
       },
       {

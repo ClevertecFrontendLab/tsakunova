@@ -7,7 +7,7 @@ export const Container = styled.div<{ isError: boolean }>`
   left: 0;
   width: 100%;
   z-index: 1000;
-  transition: all 0.1s ease-in-out;
+  transition: top 0.1s ease-in-out;
   display: ${(props) => (props.isError ? 'flex' : 'none')};
 `;
 export const WrapperToast = styled(Wrapper)`

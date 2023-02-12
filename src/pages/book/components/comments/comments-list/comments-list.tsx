@@ -12,6 +12,6 @@ type CommentsListProps = {
 
 export const CommentsList: FC<CommentsListProps> = ({ comments }) => (
   <ListContainer>
-    {comments && comments.map((comment) => <BookCommentItem key={`comment-${comment.id}`} comment={comment} />)}
+    {comments && comments.map((comment) => <BookCommentItem key={comment.id} comment={comment} />)}
   </ListContainer>
 );

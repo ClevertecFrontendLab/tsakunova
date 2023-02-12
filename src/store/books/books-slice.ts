@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ErrorMessages } from 'types/enum';
 import { MainBookDTO } from 'types/types';
 
 import { fetchBooks } from './books-actions';
@@ -38,7 +39,7 @@ export const booksSlice = createSlice({
     builder.addCase(fetchBooks.rejected, (state, action) => {
       state.isError = true;
       state.isLoading = false;
-      state.errorMessage = 'Mess';
+      state.errorMessage = ErrorMessages.main;
     });
   },
 });

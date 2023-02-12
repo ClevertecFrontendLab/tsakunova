@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ErrorMessages } from 'types/enum';
 import { FullBookDTO } from 'types/types';
 
 import { fetchCurrentBook } from './current-book-actions';
@@ -20,11 +21,7 @@ const initialState: CurrentBookState = {
 export const currentBookSlice = createSlice({
   name: 'currentBook',
   initialState,
-  reducers: {
-    // setBooks: (state, action: PayloadAction<MainBookDTO[]>) => {
-    //   state.books = action.payload;
-    // },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchCurrentBook.pending, (state, action) => {
       state.isLoading = true;
@@ -38,7 +35,7 @@ export const currentBookSlice = createSlice({
     builder.addCase(fetchCurrentBook.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      state.errorMessage = 'currErr';
+      state.errorMessage = ErrorMessages.main;
     });
   },
 });

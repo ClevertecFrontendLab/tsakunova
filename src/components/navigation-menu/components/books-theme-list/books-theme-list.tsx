@@ -5,7 +5,7 @@ import { useOnMount } from 'hooks/use-on-mount';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { fetchCategories } from 'store/categories/categories-actions';
 import { RouteNames, TestIdType } from 'types/enum';
-import { NavMenuItemList } from 'types/types';
+import { CategoriesDTO, NavMenuItemList } from 'types/types';
 
 import { BooksThemeListItem } from '../books-theme-list-item';
 
@@ -31,7 +31,10 @@ export const BooksThemeList: FC<{
   );
 
   const renderItem = useCallback(
-    () => categories.map((item) => <BooksThemeListItem item={item} onPress={onPressCategory} key={item.id} />),
+    () =>
+      categories.map((item: CategoriesDTO) => (
+        <BooksThemeListItem item={item} onPress={onPressCategory} key={item.id} />
+      )),
     [categories, onPressCategory]
   );
 

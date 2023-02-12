@@ -70,7 +70,7 @@ export const ImageContainer = styled.div`
   }
 
   & img {
-    height: 100%;
+    width: 100%;
   }
   @media ${devices.tablet} {
     width: 136px;

@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { BookRating } from 'components/book-rating';
-import { BookSectionTitle } from 'types/enum';
+import { BookSectionTitle, TitleVariant } from 'types/enum';
 
 import { BookSectionLayout } from '../book-section-layout';
 
-import { Container } from './book-rating-section.style';
+import { Container, NotRatingSpan } from './book-rating-section.style';
 
 type BookRatingSectionProps = {
   rating: number;
@@ -13,8 +13,8 @@ type BookRatingSectionProps = {
 export const BookRatingSection: FC<BookRatingSectionProps> = ({ rating }) => (
   <BookSectionLayout title={BookSectionTitle.rating}>
     <Container>
-      <BookRating rating={rating} stylesClass='ratingInFullDescription' />
-      <div>{rating}</div>
+      <BookRating rating={rating} stylesClass='ratingInFullDescription' withStars={true} />
+      <div>{rating || <NotRatingSpan>{TitleVariant.notRating}</NotRatingSpan>}</div>
     </Container>
   </BookSectionLayout>
 );

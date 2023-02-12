@@ -1,8 +1,8 @@
 import { devices } from 'consts';
 import styled from 'styled-components';
 
-export const BookContainer = styled.div`
-  display: flex;
+export const BookContainer = styled.div<{ isLoading: boolean }>`
+  display: ${(props) => (props.isLoading ? 'none' : 'flex')};
   flex-direction: column;
   justify-content: flex-start;
 `;

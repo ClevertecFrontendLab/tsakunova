@@ -37,6 +37,7 @@ export const theme = {
     h2: '500 44px/54px Montserrat',
     h3: '700 32px/40px Montserrat',
     mobileH3: '700 18px/28px Montserrat',
+    selectedTheme: '700 16px/24px Montserrat',
     h4: '700 24px/30px Montserrat',
     h5: 'bold 22px/32px Montserrat',
     desktopH5: '700 18px/28px Montserrat',

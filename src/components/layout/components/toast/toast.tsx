@@ -1,28 +1,21 @@
-import { FC, useEffect, useMemo } from 'react';
-import { CloseSVG, LoaderSVG, ToastNegativeSVG } from 'assets/icons';
+import { FC } from 'react';
+import { CloseSVG, ToastNegativeSVG } from 'assets/icons';
 import { useTypedSelector } from 'hooks/use-typed-selector';
-import { Wrapper } from 'index.style';
+import { selectErrors } from 'store/utils';
+import { ErrorMessages } from 'types/enum';
 
 import { Container, ToastInfo, WrapperToast } from './toast.style';
 
 export const Toast: FC = () => {
-  const isErrorCategories = useTypedSelector((state) => state.categories.isError);
-  const isErrorBooks = useTypedSelector((state) => state.books.isError);
-  const isErrorBook = useTypedSelector((state) => state.currentBook.isError);
-
-  const isError = useMemo(
-    () => isErrorBook || isErrorBooks || isErrorCategories,
-    [isErrorBook, isErrorBooks, isErrorCategories]
-  );
+  const isError = useTypedSelector(selectErrors);
 
   return (
     <Container isError={isError}>
       <WrapperToast data-test-id='error'>
         <ToastInfo>
           <ToastNegativeSVG />
-          <p>Что-то пошло не так. Обновите страницу через некоторое время.</p>
+          <p>{ErrorMessages.main}</p>
         </ToastInfo>
-
         <CloseSVG />
       </WrapperToast>
     </Container>

@@ -1,16 +1,17 @@
 import React, { FC, useCallback } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { CoverCat } from 'assets/icons';
 import { BookRating } from 'components/book-rating';
 import { PrimaryButton } from 'components/buttons/primary-button';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { fetchCurrentBook } from 'store/current-book/current-book-actions';
-import { RouteNames, ViewVariant } from 'types/enum';
+import { BookCategory, RouteNames, ViewVariant } from 'types/enum';
 import { MainBookDTO } from 'types/types';
 import { addComma } from 'utils/add-comma';
 import { getButtonStyles } from 'utils/get-button-styles';
 import { getImageURL } from 'utils/get-image-url';
+import { keyExtractor } from 'utils/key-extractor';
 
 import { getStyledComponentForBookCard } from './book-card.utils';
 import { ListAbout, ListButtonContainer, ListOther } from './book-card-list.style';
@@ -21,10 +22,11 @@ type BookProps = {
   view: ViewVariant;
 };
 
-export const BookCard: FC<BookProps> = ({ book: { image, id, rating, title, authors, booking, categories }, view }) => {
+export const BookCard: FC<BookProps> = ({ book: { image, id, rating, title, authors, booking }, view }) => {
   const { buttonType, buttonTitle } = getButtonStyles(booking?.order, booking?.dateOrder);
   const { card: Card, content: Content, image: Image } = getStyledComponentForBookCard(view);
   const dispatch = useAppDispatch();
+  const { category } = useParams();
 
   const currentBookHandler = () => {
     dispatch(fetchCurrentBook(id));
@@ -36,7 +38,7 @@ export const BookCard: FC<BookProps> = ({ book: { image, id, rating, title, auth
         <h5>{title}</h5>
         <p>
           {authors?.map((author, index) => (
-            <span>
+            <span key={keyExtractor(index)}>
               {author}
               {addComma(index, authors.length)}
             </span>
@@ -50,7 +52,7 @@ export const BookCard: FC<BookProps> = ({ book: { image, id, rating, title, auth
   return (
     <Card data-test-id='card'>
       <Content onClick={currentBookHandler}>
-        <NavLink to={`/books/all/${id}`}>
+        <NavLink to={`/${RouteNames.books}/${category ? category : RouteNames.booksAll}/${id}`}>
           <Image>{image?.url ? <img alt={title} src={getImageURL(image.url)} /> : <CoverCat />}</Image>
           {view === ViewVariant.window ? (
             <WindowOther>

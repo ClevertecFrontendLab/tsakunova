@@ -12,7 +12,7 @@ import { Toast } from './components/toast';
 import { Container, MainContainer, MainWrapper, Overlay } from './layout.style';
 
 export const Layout: FC = () => {
-  const pathBook = useMatch('/books/all/:bookId');
+  const pathBook = useMatch('/books/:category/:bookId');
   const [isOpenBurger, setIsOpenBurger] = useState<boolean>(false);
   const closeOverlay = useCallback(() => setIsOpenBurger(!isOpenBurger), [isOpenBurger]);
 

@@ -16,3 +16,7 @@ export const Container = styled.div`
     }
   }
 `;
+
+export const NotRatingSpan = styled.span`
+  font: ${(props) => props.theme.fonts.bodySmall};
+`;

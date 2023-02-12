@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { ErrorMessages } from 'types/enum';
 import { CategoriesDTO } from 'types/types';
 
 import { fetchCategories } from './categories-actions';
@@ -38,7 +39,7 @@ export const categoriesSlice = createSlice({
     builder.addCase(fetchCategories.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      state.errorMessage = 'catErr';
+      state.errorMessage = ErrorMessages.main;
     });
   },
 });

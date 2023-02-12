@@ -47,7 +47,10 @@ export const BookAbout: FC<BookAboutProps> = ({
       </ImageContainer>
     );
   }, [images, title]);
-  const renderAuthors = useCallback(() => authors?.map((item) => <span>{item}</span>), [authors]);
+  const renderAuthors = useCallback(
+    () => authors?.map((item, index) => <span key={keyExtractor(index)}>{item}</span>),
+    [authors]
+  );
 
   return (
     <BookAboutContainer>
