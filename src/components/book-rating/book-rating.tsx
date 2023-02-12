@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import { FC, useCallback } from 'react';
 import { EmptyStar } from 'assets/icons';
 import { theme } from 'style/theme';
 import { TitleVariant } from 'types/enum';

@@ -8,7 +8,7 @@ const SocialItem: FC<{ item: { icon: string; src: string } }> = React.memo(({ it
   const Icon = item.icon;
 
   return (
-    <a href={item.src} target='_blank' rel='noreferrer'>
+    <a href={item.src} target='_blank' rel='noreferrer noopener'>
       <Icon />
     </a>
   );

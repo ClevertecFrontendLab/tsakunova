@@ -9,11 +9,11 @@ type HeaderAuthorizationProps = {
   user: UserDTO;
 };
 
-export const HeaderAuthorization: FC<HeaderAuthorizationProps> = ({ user: { name, avatarLink } }) => (
+export const HeaderAuthorization: FC<HeaderAuthorizationProps> = ({ user: { name, avatarLink = '' } }) => (
   <AuthorizationContainer>
     <Subtitle>Привет, {name}!</Subtitle>
     <Link to='/'>
-      <AvatarImg size='58px' bgImage={avatarLink!} />
+      <AvatarImg size='58px' bgImage={avatarLink} />
     </Link>
   </AuthorizationContainer>
 );

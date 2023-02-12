@@ -1,5 +1,5 @@
-import React, { FC } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { FC } from 'react';
+import { useParams } from 'react-router-dom';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { Wrapper } from 'index.style';
 import { BookCategory } from 'types/enum';
@@ -13,16 +13,18 @@ export const BookBreadcrumbs: FC = () => {
   const currentBook = useTypedSelector((state) => state.currentBook.currentBook);
   const isLoading = useTypedSelector((state) => state.currentBook.isLoading);
 
-  return !isLoading ? (
+  if (isLoading) return null;
+
+  return (
     <BookBreadcrumbsContainer>
       <Wrapper>
         <BookBreadcrumbsWrapper>
           <p>
             <span>{categoryTitle}</span>
-            <span>{currentBook.title}</span>
+            <span>{currentBook?.title}</span>
           </p>
         </BookBreadcrumbsWrapper>
       </Wrapper>
     </BookBreadcrumbsContainer>
-  ) : null;
+  );
 };

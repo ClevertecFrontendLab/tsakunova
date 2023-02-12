@@ -3,6 +3,7 @@ import axios from 'axios';
 import { baseURL } from 'store/const';
 import { FullBookDTO } from 'types/types';
 
-export const fetchCurrentBook = createAsyncThunk('/currentBook', async (id: number) =>
-  axios.get<FullBookDTO>(`${baseURL}books/${id}`)
+export const fetchCurrentBook = createAsyncThunk(
+  '/currentBook',
+  async (id: string) => (await axios.get<FullBookDTO>(`${baseURL}books/${id}`)).data
 );

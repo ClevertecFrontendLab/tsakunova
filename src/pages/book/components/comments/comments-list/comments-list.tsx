@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { CommentDTO } from 'types/types';
-import { keyExtractor } from 'utils/key-extractor';
 
 import { BookCommentItem } from '../comment-item';
 

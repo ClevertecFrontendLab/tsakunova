@@ -5,26 +5,26 @@ import { MainBookDTO } from 'types/types';
 import { fetchBooks } from './books-actions';
 
 type BooksState = {
-  books: MainBookDTO[];
+  books: MainBookDTO[] | null;
   isLoading: boolean;
   isError: boolean;
-  errorMessage: string;
+  errorMessage: string | null;
 };
 
 const initialState: BooksState = {
-  books: [],
+  books: null,
   isLoading: false,
   isError: false,
-  errorMessage: '',
+  errorMessage: null,
 };
 
 export const booksSlice = createSlice({
   name: 'books',
   initialState,
   reducers: {
-    // setBooks: (state, action: PayloadAction<MainBookDTO[]>) => {
-    //   state.books = action.payload;
-    // },
+    resetBooks: (state) => {
+      state.books = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchBooks.pending, (state, action) => {
@@ -32,7 +32,7 @@ export const booksSlice = createSlice({
       state.isError = false;
     });
     builder.addCase(fetchBooks.fulfilled, (state, action) => {
-      state.books = action.payload.data;
+      state.books = action.payload;
       state.isLoading = false;
       state.isError = false;
     });
@@ -43,5 +43,5 @@ export const booksSlice = createSlice({
     });
   },
 });
-
+export const { resetBooks } = booksSlice.actions;
 export const booksReducer = booksSlice.reducer;

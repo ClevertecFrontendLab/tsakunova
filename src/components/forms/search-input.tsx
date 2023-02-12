@@ -101,15 +101,15 @@ type SearchInputProps = {
 
 export const SearchInput: FC<SearchInputProps> = ({ isOpen, setIsOpen }) => {
   const [currentValue, setCurrentValue] = useState('');
-  const searchInputRef = useRef<any>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [blur, setBlur] = useState(true);
 
-  const changeText = (event: any) => {
-    setCurrentValue(event.target.value);
+  const changeText = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrentValue(event?.target?.value);
   };
 
   useEffect(() => {
-    if (isOpen) searchInputRef.current.focus();
+    if (isOpen) searchInputRef?.current?.focus();
   });
 
   return (

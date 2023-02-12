@@ -3,10 +3,7 @@ import { NavLink, useParams } from 'react-router-dom';
 import { CoverCat } from 'assets/icons';
 import { BookRating } from 'components/book-rating';
 import { PrimaryButton } from 'components/buttons/primary-button';
-import { useAppDispatch } from 'hooks/use-app-dispatch';
-import { useTypedSelector } from 'hooks/use-typed-selector';
-import { fetchCurrentBook } from 'store/current-book/current-book-actions';
-import { BookCategory, RouteNames, ViewVariant } from 'types/enum';
+import { RouteNames, ViewVariant } from 'types/enum';
 import { MainBookDTO } from 'types/types';
 import { addComma } from 'utils/add-comma';
 import { getButtonStyles } from 'utils/get-button-styles';
@@ -25,12 +22,7 @@ type BookProps = {
 export const BookCard: FC<BookProps> = ({ book: { image, id, rating, title, authors, booking }, view }) => {
   const { buttonType, buttonTitle } = getButtonStyles(booking?.order, booking?.dateOrder);
   const { card: Card, content: Content, image: Image } = getStyledComponentForBookCard(view);
-  const dispatch = useAppDispatch();
   const { category } = useParams();
-
-  const currentBookHandler = () => {
-    dispatch(fetchCurrentBook(id));
-  };
 
   const renderAboutBlock = useCallback(
     () => (
@@ -51,7 +43,7 @@ export const BookCard: FC<BookProps> = ({ book: { image, id, rating, title, auth
 
   return (
     <Card data-test-id='card'>
-      <Content onClick={currentBookHandler}>
+      <Content>
         <NavLink to={`/${RouteNames.books}/${category ? category : RouteNames.booksAll}/${id}`}>
           <Image>{image?.url ? <img alt={title} src={getImageURL(image.url)} /> : <CoverCat />}</Image>
           {view === ViewVariant.window ? (

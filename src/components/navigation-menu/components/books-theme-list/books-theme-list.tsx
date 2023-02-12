@@ -1,9 +1,10 @@
-import { FC, useCallback, useMemo } from 'react';
+import { FC, useCallback, useEffect, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
 import { useOnMount } from 'hooks/use-on-mount';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { fetchCategories } from 'store/categories/categories-actions';
+import { resetCategories } from 'store/categories/categories-slice';
 import { RouteNames, TestIdType } from 'types/enum';
 import { CategoriesDTO, NavMenuItemList } from 'types/types';
 
@@ -19,11 +20,13 @@ export const BooksThemeList: FC<{
 }> = ({ list, isBurgerMenu, isListOpen, onPressCategory }) => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
-  const categories = useTypedSelector((state) => state.categories.categories);
+  const categories = useTypedSelector((state) => state.categories.categories || []);
 
   useOnMount(() => {
     dispatch(fetchCategories());
   });
+
+  useEffect((): (() => void) => () => dispatch(resetCategories()), [dispatch]);
 
   const getLinkStyle = useCallback(
     (isActive: boolean) => (isActive || pathname === '/' || pathname === `/${RouteNames.books}` ? 'active' : undefined),

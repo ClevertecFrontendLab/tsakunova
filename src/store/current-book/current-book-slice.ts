@@ -5,14 +5,14 @@ import { FullBookDTO } from 'types/types';
 import { fetchCurrentBook } from './current-book-actions';
 
 type CurrentBookState = {
-  currentBook: FullBookDTO;
+  currentBook: FullBookDTO | null;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
 };
 
 const initialState: CurrentBookState = {
-  currentBook: {} as FullBookDTO,
+  currentBook: null,
   isLoading: false,
   isError: false,
   errorMessage: '',
@@ -21,14 +21,18 @@ const initialState: CurrentBookState = {
 export const currentBookSlice = createSlice({
   name: 'currentBook',
   initialState,
-  reducers: {},
+  reducers: {
+    resetBook: (state) => {
+      state.currentBook = null;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchCurrentBook.pending, (state, action) => {
       state.isLoading = true;
       state.isError = false;
     });
     builder.addCase(fetchCurrentBook.fulfilled, (state, action) => {
-      state.currentBook = action.payload.data;
+      state.currentBook = action.payload;
       state.isLoading = false;
       state.isError = false;
     });
@@ -40,4 +44,5 @@ export const currentBookSlice = createSlice({
   },
 });
 
+export const { resetBook } = currentBookSlice.actions;
 export const currentBookReducer = currentBookSlice.reducer;

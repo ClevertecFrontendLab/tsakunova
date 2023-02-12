@@ -3,7 +3,6 @@ import { Outlet, useMatch } from 'react-router-dom';
 import { BookBreadcrumbs } from 'components/book-breadcrumbs';
 import { NavigationMenu } from 'components/navigation-menu';
 import { mockUser } from 'mocks/user.mock';
-import { RouteNames } from 'types/enum';
 
 import { Footer } from './components/footer';
 import { Header } from './components/header';

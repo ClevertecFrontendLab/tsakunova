@@ -15,5 +15,5 @@ import 'swiper/css/pagination';
 export const BookSlider: FC<{ images: ImagesType[] }> = ({ images }) => {
   const size = useWindowSize();
 
-  return size.width! <= sizes.laptop ? <SwiperSmall images={images} /> : <SwiperBig images={images} />;
+  return size.width && size.width <= sizes.laptop ? <SwiperSmall images={images} /> : <SwiperBig images={images} />;
 };

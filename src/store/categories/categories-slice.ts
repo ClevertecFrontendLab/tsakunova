@@ -5,14 +5,14 @@ import { CategoriesDTO } from 'types/types';
 import { fetchCategories } from './categories-actions';
 
 type CategoriesState = {
-  categories: CategoriesDTO[];
+  categories: CategoriesDTO[] | null;
   isLoading: boolean;
   isError: boolean;
   errorMessage: string;
 };
 
 const initialState: CategoriesState = {
-  categories: [],
+  categories: null,
   isLoading: false,
   isError: false,
   errorMessage: '',
@@ -22,9 +22,9 @@ export const categoriesSlice = createSlice({
   name: 'categories',
   initialState,
   reducers: {
-    // setBooks: (state, action: PayloadAction<MainBookDTO[]>) => {
-    //   state.books = action.payload;
-    // },
+    resetCategories: (state) => {
+      state.categories = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchCategories.pending, (state, action) => {
@@ -32,7 +32,7 @@ export const categoriesSlice = createSlice({
       state.isError = false;
     });
     builder.addCase(fetchCategories.fulfilled, (state, action) => {
-      state.categories = action.payload.data;
+      state.categories = action.payload;
       state.isLoading = false;
       state.isError = false;
     });
@@ -43,5 +43,7 @@ export const categoriesSlice = createSlice({
     });
   },
 });
+
+export const { resetCategories } = categoriesSlice.actions;
 
 export const categoriesReducer = categoriesSlice.reducer;

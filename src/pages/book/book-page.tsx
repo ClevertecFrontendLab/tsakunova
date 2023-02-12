@@ -1,11 +1,11 @@
-import { FC, useCallback, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { PrimaryButton } from 'components/buttons/primary-button';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
-import { useOnMount } from 'hooks/use-on-mount';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { Wrapper } from 'index.style';
 import { fetchCurrentBook } from 'store/current-book/current-book-actions';
+import { resetBook } from 'store/current-book/current-book-slice';
 import { ButtonType, TitleVariant } from 'types/enum';
 
 import { BookAbout } from './components/book-about';
@@ -17,22 +17,24 @@ import { BookContainer, ButtonContainer, InfoSection } from './book-page.style';
 export const BookPage: FC = () => {
   const { bookId } = useParams();
   const dispatch = useAppDispatch();
-  const { currentBook, isLoading, isError } = useTypedSelector((state) => state.currentBook);
+  const { isLoading, isError } = useTypedSelector((state) => state.currentBook);
+  const currentBook = useTypedSelector((state) => state.currentBook.currentBook);
 
   useEffect(() => {
-    dispatch(fetchCurrentBook(Number(bookId)));
+    if (bookId) dispatch(fetchCurrentBook(bookId));
   }, [bookId, dispatch]);
-  const pressBookingButton = useCallback(() => console.log(currentBook!.id), [currentBook]);
 
-  if (isError) return null;
+  useEffect((): (() => void) => () => dispatch(resetBook()), [dispatch]);
+
+  if (isError || !currentBook) return null;
 
   return (
     <Wrapper>
       <BookContainer isLoading={isLoading}>
-        <BookAbout book={currentBook} onBookedButtonPress={pressBookingButton} />
+        <BookAbout book={currentBook} onBookedButtonPress={() => {}} />
         <InfoSection>
-          <BookRatingSection rating={currentBook!.rating} />
-          <FullInfoSection book={currentBook!} />
+          <BookRatingSection rating={currentBook.rating} />
+          <FullInfoSection book={currentBook} />
           <CommentsSection comments={currentBook.comments} />
         </InfoSection>
         <ButtonContainer>
