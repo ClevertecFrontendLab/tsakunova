@@ -75,3 +75,5 @@ export const SOCIAL_LINKS = [
     icon: IconLinkedin,
   },
 ];
+
+export const COPYRIGHT_TEXT = '© 2020-2023 Cleverland. Все права защищены.';

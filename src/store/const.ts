@@ -1,1 +1,1 @@
-export const baseURL = 'https://strapi.cleverland.by/api/';
+export const BASE_API_URL = 'https://strapi.cleverland.by/api/';

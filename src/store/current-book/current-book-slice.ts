@@ -1,21 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ErrorMessages } from 'types/enum';
-import { FullBookDTO } from 'types/types';
 
 import { fetchCurrentBook } from './current-book-actions';
-
-type CurrentBookState = {
-  currentBook: FullBookDTO | null;
-  isLoading: boolean;
-  isError: boolean;
-  errorMessage: string;
-};
+import { CurrentBookState } from './types';
 
 const initialState: CurrentBookState = {
   currentBook: null,
   isLoading: false,
   isError: false,
-  errorMessage: '',
 };
 
 export const currentBookSlice = createSlice({
@@ -25,9 +16,12 @@ export const currentBookSlice = createSlice({
     resetBook: (state) => {
       state.currentBook = null;
     },
+    hideBookToast: (state) => {
+      state.isError = false;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCurrentBook.pending, (state, action) => {
+    builder.addCase(fetchCurrentBook.pending, (state) => {
       state.isLoading = true;
       state.isError = false;
     });
@@ -36,13 +30,12 @@ export const currentBookSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
     });
-    builder.addCase(fetchCurrentBook.rejected, (state, action) => {
+    builder.addCase(fetchCurrentBook.rejected, (state) => {
       state.isLoading = false;
       state.isError = true;
-      state.errorMessage = ErrorMessages.main;
     });
   },
 });
 
-export const { resetBook } = currentBookSlice.actions;
+export const { resetBook, hideBookToast } = currentBookSlice.actions;
 export const currentBookReducer = currentBookSlice.reducer;

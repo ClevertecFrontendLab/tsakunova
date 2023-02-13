@@ -1,6 +1,6 @@
 import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
 import { DownSVG, UpSVG } from 'assets/icons';
-import { SeparationLine } from 'components/separation/separation-line';
+import { SeparationLine } from 'index.style';
 
 import { TitleBookSection } from './book-section-layout.style';
 

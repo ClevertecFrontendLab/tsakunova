@@ -1,21 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ErrorMessages } from 'types/enum';
-import { CategoriesDTO } from 'types/types';
 
 import { fetchCategories } from './categories-actions';
-
-type CategoriesState = {
-  categories: CategoriesDTO[] | null;
-  isLoading: boolean;
-  isError: boolean;
-  errorMessage: string;
-};
+import { CategoriesState } from './types';
 
 const initialState: CategoriesState = {
   categories: null,
   isLoading: false,
   isError: false,
-  errorMessage: '',
 };
 
 export const categoriesSlice = createSlice({
@@ -25,9 +16,12 @@ export const categoriesSlice = createSlice({
     resetCategories: (state) => {
       state.categories = null;
     },
+    hideCategoriesToast: (state) => {
+      state.isError = false;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCategories.pending, (state, action) => {
+    builder.addCase(fetchCategories.pending, (state) => {
       state.isLoading = true;
       state.isError = false;
     });
@@ -36,14 +30,13 @@ export const categoriesSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
     });
-    builder.addCase(fetchCategories.rejected, (state, action) => {
+    builder.addCase(fetchCategories.rejected, (state) => {
       state.isLoading = false;
       state.isError = true;
-      state.errorMessage = ErrorMessages.main;
     });
   },
 });
 
-export const { resetCategories } = categoriesSlice.actions;
+export const { resetCategories, hideCategoriesToast } = categoriesSlice.actions;
 
 export const categoriesReducer = categoriesSlice.reducer;

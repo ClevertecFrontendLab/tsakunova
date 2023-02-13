@@ -1,23 +1,39 @@
-import { FC } from 'react';
-import { CloseSVG, ToastNegativeSVG } from 'assets/icons';
+import { FC, useCallback } from 'react';
+import { CloseSVG } from 'assets/icons';
+import { useAppDispatch } from 'hooks/use-app-dispatch';
+import { useOnMount } from 'hooks/use-on-mount';
 import { useTypedSelector } from 'hooks/use-typed-selector';
-import { selectErrors } from 'store/utils';
-import { ErrorMessages } from 'types/enum';
+import { hideToast } from 'store/utils/utils-slice';
 
-import { Container, ToastInfo, WrapperToast } from './toast.style';
+import { CloseButton, Container, ToastInfo } from './toast.style';
+import { getToastStyles } from './toast.utils';
 
 export const Toast: FC = () => {
-  const isError = useTypedSelector(selectErrors);
+  const toast = useTypedSelector((state) => state.utils.toast);
+  const dispatch = useAppDispatch();
+  const { icon: Icon, styledComponent: Component } = getToastStyles(toast?.toastType);
+
+  useOnMount(() => {
+    setTimeout(() => {
+      dispatch(hideToast());
+    }, 10000);
+  });
+
+  const closeToast = useCallback(() => {
+    dispatch(hideToast());
+  }, [dispatch]);
 
   return (
-    <Container isError={isError}>
-      <WrapperToast data-test-id='error'>
+    <Container isActive={!!toast}>
+      <Component data-test-id='error'>
         <ToastInfo>
-          <ToastNegativeSVG />
-          <p>{ErrorMessages.main}</p>
+          <Icon />
+          <p>{toast?.toastMessage}</p>
         </ToastInfo>
-        <CloseSVG />
-      </WrapperToast>
+        <CloseButton onClick={closeToast}>
+          <CloseSVG />
+        </CloseButton>
+      </Component>
     </Container>
   );
 };

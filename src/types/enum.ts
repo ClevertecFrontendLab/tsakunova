@@ -84,7 +84,3 @@ export enum BookCategory {
   fantasy = 'Фантастика',
   humor = 'Юмор',
 }
-
-export enum ErrorMessages {
-  main = 'Что-то пошло не так. Обновите страницу через некоторое время.',
-}

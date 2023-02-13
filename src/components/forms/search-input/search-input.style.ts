@@ -1,11 +1,7 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
-import { CloseSVG, SearchSVG } from 'assets/icons';
-import { CircleButton } from 'components/buttons/circle-button';
 import { devices } from 'consts';
 import styled from 'styled-components';
-import { TitleVariant, ViewVariant } from 'types/enum';
 
-const SearchInputContainer = styled.div<{ isOpen: boolean }>`
+export const SearchInputContainer = styled.div<{ isOpen: boolean }>`
   width: 350px;
   padding: 10px 16px;
   position: relative;
@@ -72,14 +68,14 @@ const SearchInputContainer = styled.div<{ isOpen: boolean }>`
   }
 `;
 
-const VisibleMobile = styled.div`
+export const VisibleMobile = styled.div`
   display: none;
   @media ${devices.mobile} {
     display: flex;
   }
 `;
 
-const CloseButton = styled.span<{ isBlur: boolean }>`
+export const CloseButton = styled.span<{ isBlur: boolean }>`
   display: ${(props) => (props.isBlur ? 'none' : 'block')};
   width: 16px;
   height: 16px;
@@ -93,62 +89,3 @@ const CloseButton = styled.span<{ isBlur: boolean }>`
     fill: ${(props) => props.theme.color.main.accent};
   }
 `;
-
-type SearchInputProps = {
-  isOpen: boolean;
-  setIsOpen: (value: boolean) => void;
-};
-
-export const SearchInput: FC<SearchInputProps> = ({ isOpen, setIsOpen }) => {
-  const [currentValue, setCurrentValue] = useState('');
-  const searchInputRef = useRef<HTMLInputElement>(null);
-  const [blur, setBlur] = useState(true);
-
-  const changeText = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentValue(event?.target?.value);
-  };
-
-  useEffect(() => {
-    if (isOpen) searchInputRef?.current?.focus();
-  });
-
-  return (
-    <React.Fragment>
-      <VisibleMobile data-test-id='button-search-open'>
-        {!isOpen && (
-          <CircleButton
-            onClick={() => {
-              setIsOpen(!isOpen);
-            }}
-            type={ViewVariant.search}
-            icon={SearchSVG}
-            isActive={false}
-          />
-        )}
-      </VisibleMobile>
-      <SearchInputContainer isOpen={isOpen} data-test-id='input-search'>
-        <input
-          onChange={changeText}
-          ref={searchInputRef}
-          value={currentValue}
-          type='text'
-          onFocus={() => setBlur(false)}
-          onBlur={() => {
-            setIsOpen(false);
-            setBlur(true);
-          }}
-          placeholder={TitleVariant.searchPlaceholder}
-        />
-        <SearchSVG className='searchIcon' />
-        <CloseButton data-test-id='button-search-close' isBlur={blur}>
-          <CloseSVG
-            className='searchCancelIcon'
-            onClick={() => {
-              setIsOpen(false);
-            }}
-          />
-        </CloseButton>
-      </SearchInputContainer>
-    </React.Fragment>
-  );
-};

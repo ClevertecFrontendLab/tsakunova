@@ -1,21 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ErrorMessages } from 'types/enum';
-import { MainBookDTO } from 'types/types';
 
 import { fetchBooks } from './books-actions';
-
-type BooksState = {
-  books: MainBookDTO[] | null;
-  isLoading: boolean;
-  isError: boolean;
-  errorMessage: string | null;
-};
+import { BooksState } from './types';
 
 const initialState: BooksState = {
   books: null,
   isLoading: false,
   isError: false,
-  errorMessage: null,
 };
 
 export const booksSlice = createSlice({
@@ -25,9 +16,12 @@ export const booksSlice = createSlice({
     resetBooks: (state) => {
       state.books = null;
     },
+    hideBooksToast: (state) => {
+      state.isError = false;
+    },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchBooks.pending, (state, action) => {
+    builder.addCase(fetchBooks.pending, (state) => {
       state.isLoading = true;
       state.isError = false;
     });
@@ -36,12 +30,11 @@ export const booksSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
     });
-    builder.addCase(fetchBooks.rejected, (state, action) => {
+    builder.addCase(fetchBooks.rejected, (state) => {
       state.isError = true;
       state.isLoading = false;
-      state.errorMessage = ErrorMessages.main;
     });
   },
 });
-export const { resetBooks } = booksSlice.actions;
+export const { resetBooks, hideBooksToast } = booksSlice.actions;
 export const booksReducer = booksSlice.reducer;

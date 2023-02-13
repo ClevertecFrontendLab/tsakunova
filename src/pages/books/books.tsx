@@ -1,6 +1,8 @@
 import { FC, useCallback, useEffect, useState } from 'react';
+import { ToastMessages, ToastType } from 'components/layout/components/toast/toast.enum';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
 import { useOnMount } from 'hooks/use-on-mount';
+import { useToast } from 'hooks/use-toast';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { fetchBooks } from 'store/books/books-actions';
 import { resetBooks } from 'store/books/books-slice';
@@ -13,7 +15,9 @@ import { Container, HomeContainer } from './books.style';
 export const Books: FC = () => {
   const dispatch = useAppDispatch();
   const booksList = useTypedSelector((state) => state.books.books || []);
+  const isError = useTypedSelector((state) => state.books.isError);
 
+  useToast(ToastType.negative, ToastMessages.mainError, isError);
   const [activeView, setActiveView] = useState<ViewVariant>(ViewVariant.window);
 
   useOnMount(async () => {

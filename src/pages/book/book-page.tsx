@@ -1,7 +1,9 @@
 import { FC, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { PrimaryButton } from 'components/buttons/primary-button';
+import { ToastMessages, ToastType } from 'components/layout/components/toast/toast.enum';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
+import { useToast } from 'hooks/use-toast';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { Wrapper } from 'index.style';
 import { fetchCurrentBook } from 'store/current-book/current-book-actions';
@@ -19,6 +21,8 @@ export const BookPage: FC = () => {
   const dispatch = useAppDispatch();
   const { isLoading, isError } = useTypedSelector((state) => state.currentBook);
   const currentBook = useTypedSelector((state) => state.currentBook.currentBook);
+
+  useToast(ToastType.negative, ToastMessages.mainError, isError);
 
   useEffect(() => {
     if (bookId) dispatch(fetchCurrentBook(bookId));

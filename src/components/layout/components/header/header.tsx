@@ -9,11 +9,13 @@ import { BurgerMenu } from './components/ burger-menu';
 import { HeaderAuthorization } from './components/header-authorisation';
 import { HeaderContainer, LeftHeaderContainer, LogoContainer, MenuContainer, Title } from './header.style';
 
-export const Header: FC<{ user: UserDTO; isOpenBurger: boolean; setIsOpenBurger: (value: boolean) => void }> = ({
-  user,
-  isOpenBurger,
-  setIsOpenBurger,
-}) => {
+type HeaderProps = {
+  user: UserDTO;
+  isOpenBurger: boolean;
+  setIsOpenBurger: (value: boolean) => void;
+};
+
+export const Header: FC<HeaderProps> = ({ user, isOpenBurger, setIsOpenBurger }) => {
   const burgerOpenHandler = useCallback(() => {
     setIsOpenBurger(!isOpenBurger);
   }, [isOpenBurger, setIsOpenBurger]);

@@ -1,10 +1,13 @@
 import { FC, useCallback, useEffect, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
+import { ToastMessages, ToastType } from 'components/layout/components/toast/toast.enum';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
 import { useOnMount } from 'hooks/use-on-mount';
+import { useToast } from 'hooks/use-toast';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { fetchCategories } from 'store/categories/categories-actions';
 import { resetCategories } from 'store/categories/categories-slice';
+import { selectErrors } from 'store/selectors';
 import { RouteNames, TestIdType } from 'types/enum';
 import { CategoriesDTO, NavMenuItemList } from 'types/types';
 
@@ -12,15 +15,20 @@ import { BooksThemeListItem } from '../books-theme-list-item';
 
 import { BooksList } from './books-theme-list.style';
 
-export const BooksThemeList: FC<{
+type BooksThemeListProps = {
   list: NavMenuItemList;
   isBurgerMenu: boolean;
   isListOpen: boolean;
   onPressCategory: (e: React.SyntheticEvent) => void;
-}> = ({ list, isBurgerMenu, isListOpen, onPressCategory }) => {
+};
+
+export const BooksThemeList: FC<BooksThemeListProps> = ({ list, isBurgerMenu, isListOpen, onPressCategory }) => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const categories = useTypedSelector((state) => state.categories.categories || []);
+  const isError = useTypedSelector(selectErrors);
+
+  useToast(ToastType.negative, ToastMessages.mainError, isError);
 
   useOnMount(() => {
     dispatch(fetchCategories());
@@ -45,6 +53,8 @@ export const BooksThemeList: FC<{
     () => (isBurgerMenu ? `${TestIdType.burger}-${list.testId}` : `${TestIdType.navigation}-${list.testId}`),
     [isBurgerMenu, list.testId]
   );
+
+  if (isError) return null;
 
   return (
     <BooksList isListOpen={isListOpen}>

@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { LoaderSVG } from 'assets/icons';
 import { useTypedSelector } from 'hooks/use-typed-selector';
-import { selectLoading } from 'store/utils';
+import { selectLoading } from 'store/selectors';
 
 import { Container } from './loader.style';
 

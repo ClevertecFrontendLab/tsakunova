@@ -8,9 +8,11 @@ export const theme = {
       dark30: 'rgba(54, 54, 54, 0.3)',
       hover: 'FF740F',
     },
-    chips: {
+    toast: {
       negative: '#FEEBEA',
       borderNegative: '1.5px solid #F42C4F',
+      positive: '#EBF9F1',
+      borderPositive: '1.5px solid #00CA71',
     },
     grey: {
       black40: '#A7A7A7',
