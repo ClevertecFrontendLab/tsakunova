@@ -6,7 +6,8 @@ export const HomeContainer = styled.div`
   flex: 2;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 export const Container = styled.div`
@@ -18,5 +19,16 @@ export const Container = styled.div`
   }
   @media ${devices.mobile} {
     margin: 3px 0 60px;
+  }
+`;
+
+export const EmptyResult = styled.h3`
+  margin: 200px auto;
+  font: ${(props) => props.theme.fonts.h3};
+  color: ${(props) => props.theme.color.grey.black40};
+  @media ${devices.tablet} {
+  }
+  @media ${devices.mobile} {
+    font: ${(props) => props.theme.fonts.mobileH3};
   }
 `;

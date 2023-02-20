@@ -56,7 +56,7 @@ export const BookAbout: FC<BookAboutProps> = ({
     <BookAboutContainer>
       {getImagesSection}
       <ContentContainer>
-        <h3>{title}</h3>
+        <h3 data-test-id='book-title'>{title}</h3>
         <AboutAuthor>
           {renderAuthors()}, {issueYear}
         </AboutAuthor>

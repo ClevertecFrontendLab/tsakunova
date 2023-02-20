@@ -36,3 +36,14 @@ export const ListView = styled(Container)`
   @media ${devices.mobile} {
   }
 `;
+
+export const EmptyCategory = styled.h3`
+  padding-top: 200px;
+  font: ${(props) => props.theme.fonts.h3};
+  color: ${(props) => props.theme.color.grey.black40};
+  @media ${devices.tablet} {
+  }
+  @media ${devices.mobile} {
+    font: ${(props) => props.theme.fonts.mobileH3};
+  }
+`;

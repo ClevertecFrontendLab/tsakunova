@@ -20,6 +20,7 @@ export const SearchInputContainer = styled.div<{ isOpen: boolean }>`
     height: 100%;
     outline: none;
     font: ${(props) => props.theme.fonts.bodySmall};
+    caret-color: ${(props) => props.theme.color.main.search};
     letter-spacing: 0, 1px;
     border: none;
     padding-left: 25px;

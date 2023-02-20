@@ -1,7 +1,9 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NAVIGATION_MENU_LIST } from 'consts';
+import { useAppDispatch } from 'hooks/use-app-dispatch';
 import { useOnMount } from 'hooks/use-on-mount';
+import { setCurrentCategory } from 'store/categories/categories-slice';
 import { RouteNames } from 'types/enum';
 
 import { NavListItem } from './components/nav-list-item';
@@ -22,6 +24,7 @@ export const NavigationMenu: FC<NavMenuProps> = ({
   const [isBooksListOpen, setIsBooksListOpen] = useState<boolean>(false);
   const ref = useRef(null);
   const params = useParams();
+  const dispatch = useAppDispatch();
 
   useOnMount(() => {
     if (activeRoute === RouteNames.books) setIsBooksListOpen(true);
@@ -49,11 +52,12 @@ export const NavigationMenu: FC<NavMenuProps> = ({
     [isBooksListOpen, setIsShowMenu]
   );
   const onPressCategory = useCallback(
-    (e: React.SyntheticEvent) => {
+    (e: React.SyntheticEvent, path: string) => {
       e.stopPropagation();
+      dispatch(setCurrentCategory(path));
       setIsShowMenu(false);
     },
-    [setIsShowMenu]
+    [dispatch, setIsShowMenu]
   );
 
   const renderMenu = useCallback(

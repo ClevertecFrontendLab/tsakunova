@@ -14,7 +14,7 @@ type NavListItemProps = {
   isBooksListOpen: boolean;
   activeRoute: RouteNames;
   isBurgerMenu?: boolean;
-  onPressCategory: (e: React.SyntheticEvent) => void;
+  onPressCategory: (e: React.SyntheticEvent, path: string) => void;
 };
 
 export const NavListItem: FC<NavListItemProps> = ({

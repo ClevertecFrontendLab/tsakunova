@@ -7,8 +7,9 @@ import { useToast } from 'hooks/use-toast';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { fetchCategories } from 'store/categories/categories-actions';
 import { resetCategories } from 'store/categories/categories-slice';
-import { selectErrors } from 'store/selectors';
-import { RouteNames, TestIdType } from 'types/enum';
+import { selectBooksInCategoryWithCount } from 'store/selectors/categories-with-count';
+import { selectErrors } from 'store/selectors/error-selector';
+import { BookCategory, RouteNames, TestIdType } from 'types/enum';
 import { CategoriesDTO, NavMenuItemList } from 'types/types';
 
 import { BooksThemeListItem } from '../books-theme-list-item';
@@ -19,13 +20,13 @@ type BooksThemeListProps = {
   list: NavMenuItemList;
   isBurgerMenu: boolean;
   isListOpen: boolean;
-  onPressCategory: (e: React.SyntheticEvent) => void;
+  onPressCategory: (e: React.SyntheticEvent, path: string) => void;
 };
 
 export const BooksThemeList: FC<BooksThemeListProps> = ({ list, isBurgerMenu, isListOpen, onPressCategory }) => {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
-  const categories = useTypedSelector((state) => state.categories.categories || []);
+  const categories = useTypedSelector(selectBooksInCategoryWithCount || []);
   const isError = useTypedSelector(selectErrors);
 
   useToast(ToastType.negative, ToastMessages.mainError, isError);
@@ -43,10 +44,10 @@ export const BooksThemeList: FC<BooksThemeListProps> = ({ list, isBurgerMenu, is
 
   const renderItem = useCallback(
     () =>
-      categories.map((item: CategoriesDTO) => (
-        <BooksThemeListItem item={item} onPress={onPressCategory} key={item.id} />
+      categories?.map((item: CategoriesDTO) => (
+        <BooksThemeListItem isBurgerMenu={isBurgerMenu} item={item} onPress={onPressCategory} key={item.id} />
       )),
-    [categories, onPressCategory]
+    [categories, isBurgerMenu, onPressCategory]
   );
 
   const testId = useMemo(
@@ -60,7 +61,7 @@ export const BooksThemeList: FC<BooksThemeListProps> = ({ list, isBurgerMenu, is
     <BooksList isListOpen={isListOpen}>
       <li>
         <NavLink
-          onClick={onPressCategory}
+          onClick={(e) => onPressCategory(e, BookCategory.all)}
           className={({ isActive }) => getLinkStyle(isActive)}
           to={`/${RouteNames.books}/${RouteNames.booksAll}`}
         >

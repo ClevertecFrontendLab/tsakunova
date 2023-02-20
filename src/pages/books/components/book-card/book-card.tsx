@@ -3,6 +3,8 @@ import { NavLink, useParams } from 'react-router-dom';
 import { CoverCat } from 'assets/icons';
 import { BookRating } from 'components/book-rating';
 import { PrimaryButton } from 'components/buttons/primary-button';
+import { HighlightMatches } from 'components/highlight-matches';
+import { useTypedSelector } from 'hooks/use-typed-selector';
 import { RouteNames, ViewVariant } from 'types/enum';
 import { MainBookDTO } from 'types/types';
 import { addComma } from 'utils/add-comma';
@@ -23,11 +25,13 @@ export const BookCard: FC<BookProps> = ({ book: { image, id, rating, title, auth
   const { buttonType, buttonTitle } = getButtonStyles(booking?.order, booking?.dateOrder);
   const { card: Card, content: Content, image: Image } = getStyledComponentForBookCard(view);
   const { category } = useParams();
+  const searchValue = useTypedSelector((state) => state.utils.searchString);
+  const addLight = useCallback((str: string) => <HighlightMatches filter={searchValue} text={str} />, [searchValue]);
 
   const renderAboutBlock = useCallback(
     () => (
       <React.Fragment>
-        <h5>{title}</h5>
+        <h5>{addLight(title)}</h5>
         <p>
           {authors?.map((author, index) => (
             <span key={keyExtractor(index)}>
@@ -38,7 +42,7 @@ export const BookCard: FC<BookProps> = ({ book: { image, id, rating, title, auth
         </p>
       </React.Fragment>
     ),
-    [authors, title]
+    [addLight, authors, title]
   );
 
   return (
