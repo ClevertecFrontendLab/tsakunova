@@ -1,8 +1,7 @@
-import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NAVIGATION_MENU_LIST } from 'consts';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
-import { useOnMount } from 'hooks/use-on-mount';
 import { setCurrentCategory } from 'store/categories/categories-slice';
 import { RouteNames } from 'types/enum';
 
@@ -25,10 +24,6 @@ export const NavigationMenu: FC<NavMenuProps> = ({
   const ref = useRef(null);
   const params = useParams();
   const dispatch = useAppDispatch();
-
-  useOnMount(() => {
-    if (activeRoute === RouteNames.books) setIsBooksListOpen(true);
-  });
 
   useEffect(() => {
     if (activeRoute === RouteNames.books) setIsBooksListOpen(true);
@@ -60,23 +55,20 @@ export const NavigationMenu: FC<NavMenuProps> = ({
     [dispatch, setIsShowMenu]
   );
 
-  const renderMenu = useCallback(
-    () =>
-      NAVIGATION_MENU_LIST.map((item) => (
-        <NavListItem
-          isBurgerMenu={isBurgerMenu}
-          key={item.route}
-          item={item}
-          activeRoute={activeRoute}
-          onPressRoute={onPressRoute}
-          onPressCategory={onPressCategory}
-          isBooksListOpen={isBooksListOpen}
-        />
-      )),
-    [activeRoute, isBooksListOpen, isBurgerMenu, onPressCategory, onPressRoute]
-  );
+  const renderMenu = () =>
+    NAVIGATION_MENU_LIST.map((item) => (
+      <NavListItem
+        isBurgerMenu={isBurgerMenu}
+        key={item.route}
+        item={item}
+        activeRoute={activeRoute}
+        onPressRoute={onPressRoute}
+        onPressCategory={onPressCategory}
+        isBooksListOpen={isBooksListOpen}
+      />
+    ));
 
-  const StyledComponent = useMemo(() => (isBurgerMenu ? BurgerMenuContainer : Container), [isBurgerMenu]);
+  const StyledComponent = isBurgerMenu ? BurgerMenuContainer : Container;
 
   return (
     <StyledComponent ref={ref} isShowMenu={isShowMenu} data-test-id={isBurgerMenu && 'burger-navigation'}>

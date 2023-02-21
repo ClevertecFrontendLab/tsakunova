@@ -10,6 +10,12 @@ export const BooksList = styled.ul<{ isListOpen: boolean }>`
   .active {
     color: ${(props) => props.theme.color.main.accent};
     font: ${(props) => props.theme.fonts.selectedTheme};
+    .listTitle {
+      font: ${(props) => props.theme.fonts.selectedTheme};
+    }
+  }
+  .listTitle {
+    font: ${(props) => props.theme.fonts.normal};
   }
   & ul {
     padding-left: 5px;

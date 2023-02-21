@@ -1,8 +1,7 @@
-import { FC, useCallback, useEffect, useMemo } from 'react';
+import { FC, useEffect, useMemo } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { ToastMessages, ToastType } from 'components/layout/components/toast/toast.enum';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
-import { useOnMount } from 'hooks/use-on-mount';
 import { useToast } from 'hooks/use-toast';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { fetchCategories } from 'store/categories/categories-actions';
@@ -31,29 +30,25 @@ export const BooksThemeList: FC<BooksThemeListProps> = ({ list, isBurgerMenu, is
 
   useToast(ToastType.negative, ToastMessages.mainError, isError);
 
-  useOnMount(() => {
+  useEffect(() => {
     dispatch(fetchCategories());
-  });
+  }, [dispatch]);
 
   useEffect((): (() => void) => () => dispatch(resetCategories()), [dispatch]);
 
-  const getLinkStyle = useCallback(
-    (isActive: boolean) => (isActive || pathname === '/' || pathname === `/${RouteNames.books}` ? 'active' : undefined),
-    [pathname]
-  );
+  const getLinkStyle = (isActive: boolean) =>
+    isActive || pathname === '/' || pathname === `/${RouteNames.books}` ? 'active' : undefined;
 
-  const renderItem = useCallback(
-    () =>
-      categories?.map((item: CategoriesDTO) => (
-        <BooksThemeListItem isBurgerMenu={isBurgerMenu} item={item} onPress={onPressCategory} key={item.id} />
-      )),
-    [categories, isBurgerMenu, onPressCategory]
+  const testIdType = useMemo(
+    () => (isBurgerMenu ? `${TestIdType.burger}` : `${TestIdType.navigation}`),
+    [isBurgerMenu]
   );
+  const testId = `${testIdType}-${list.testId}`;
 
-  const testId = useMemo(
-    () => (isBurgerMenu ? `${TestIdType.burger}-${list.testId}` : `${TestIdType.navigation}-${list.testId}`),
-    [isBurgerMenu, list.testId]
-  );
+  const renderItem = () =>
+    categories?.map((item: CategoriesDTO) => (
+      <BooksThemeListItem dataTestId={testIdType} item={item} onPress={onPressCategory} key={item.id} />
+    ));
 
   if (isError) return null;
 
@@ -65,7 +60,9 @@ export const BooksThemeList: FC<BooksThemeListProps> = ({ list, isBurgerMenu, is
           className={({ isActive }) => getLinkStyle(isActive)}
           to={`/${RouteNames.books}/${RouteNames.booksAll}`}
         >
-          <span data-test-id={testId}>{list?.listTitle}</span>
+          <span className='listTitle' data-test-id={testId}>
+            {list?.listTitle}
+          </span>
         </NavLink>
         <ul>{renderItem()}</ul>
       </li>

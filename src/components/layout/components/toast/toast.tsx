@@ -1,7 +1,6 @@
-import { FC, useCallback } from 'react';
+import { FC, useEffect } from 'react';
 import { CloseSVG } from 'assets/icons';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
-import { useOnMount } from 'hooks/use-on-mount';
 import { useTypedSelector } from 'hooks/use-typed-selector';
 import { hideToast } from 'store/utils/utils-slice';
 
@@ -13,15 +12,15 @@ export const Toast: FC = () => {
   const dispatch = useAppDispatch();
   const { icon: Icon, styledComponent: Component } = getToastStyles(toast?.toastType);
 
-  useOnMount(() => {
+  useEffect(() => {
     setTimeout(() => {
       dispatch(hideToast());
     }, 10000);
-  });
-
-  const closeToast = useCallback(() => {
-    dispatch(hideToast());
   }, [dispatch]);
+
+  const closeToast = () => {
+    dispatch(hideToast());
+  };
 
   return (
     <Container isActive={!!toast}>

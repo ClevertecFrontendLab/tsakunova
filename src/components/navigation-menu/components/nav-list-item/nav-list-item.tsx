@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { DownSVG, UpSVG } from 'assets/icons';
 import { RouteNames, TestIdType } from 'types/enum';
@@ -25,16 +25,11 @@ export const NavListItem: FC<NavListItemProps> = ({
   isBurgerMenu = false,
   onPressCategory,
 }) => {
-  const testId = useMemo(
-    () => (isBurgerMenu ? `${TestIdType.burger}-${item.testId}` : `${TestIdType.navigation}-${item.testId}`),
-    [isBurgerMenu, item.testId]
-  );
+  const testId = isBurgerMenu ? `${TestIdType.burger}-${item.testId}` : `${TestIdType.navigation}-${item.testId}`;
   const { pathname } = useLocation();
-  const getLinkStyle = useCallback(
-    (isActive: boolean) => (isActive || (item.route === RouteNames.books && pathname === '/') ? 'active' : undefined),
-    [item.route, pathname]
-  );
-  const Arrow = useMemo(() => (isBooksListOpen ? UpSVG : DownSVG), [isBooksListOpen]);
+  const getLinkStyle = (isActive: boolean) =>
+    isActive || (item.route === RouteNames.books && pathname === '/') ? 'active' : undefined;
+  const Arrow = isBooksListOpen ? UpSVG : DownSVG;
 
   if (item.isOnlyBurger && !isBurgerMenu) return null;
 

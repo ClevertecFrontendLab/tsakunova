@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC } from 'react';
 import { SOCIAL_LINKS } from 'consts';
 import { keyExtractor } from 'utils/key-extractor';
 
@@ -15,10 +15,7 @@ const SocialItem: FC<{ item: { icon: string; src: string } }> = React.memo(({ it
 });
 
 export const SocialList: FC = () => {
-  const renderItems = useCallback(
-    () => SOCIAL_LINKS.map((item, index) => <SocialItem item={item} key={keyExtractor(index)} />),
-    []
-  );
+  const renderItems = () => SOCIAL_LINKS.map((item, index) => <SocialItem item={item} key={keyExtractor(index)} />);
 
   return <SocialContainer>{renderItems()}</SocialContainer>;
 };

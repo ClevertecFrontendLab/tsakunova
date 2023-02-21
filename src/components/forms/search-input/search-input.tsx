@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { CloseSVG, SearchSVG } from 'assets/icons';
 import { CircleButton } from 'components/buttons/circle-button';
 import { useAppDispatch } from 'hooks/use-app-dispatch';
@@ -22,10 +22,10 @@ export const SearchInput: FC<SearchInputProps> = ({ isOpen, setIsOpen }) => {
     dispatch(setSearchString(event?.target?.value.toLocaleLowerCase()));
   };
 
-  const onCloseClick = useCallback(() => {
+  const onCloseClick = () => {
     setBlur(true);
     setIsOpen(false);
-  }, [setIsOpen]);
+  };
 
   return (
     <React.Fragment>
