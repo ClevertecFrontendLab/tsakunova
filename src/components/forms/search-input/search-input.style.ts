@@ -77,16 +77,19 @@ export const VisibleMobile = styled.div`
 `;
 
 export const CloseButton = styled.span<{ isBlur: boolean }>`
-  display: ${(props) => (props.isBlur ? 'none' : 'block')};
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: ${(props) => `${props.theme.size.default}px`};
-  height: ${(props) => `${props.theme.size.default}px`};
+  display: none;
+  @media ${devices.mobile} {
+    display: ${(props) => (props.isBlur ? 'none' : 'block')};
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: ${(props) => `${props.theme.size.default}px`};
+    height: ${(props) => `${props.theme.size.default}px`};
 
-  path {
-    fill: ${(props) => props.theme.color.main.accent};
+    path {
+      fill: ${(props) => props.theme.color.main.accent};
+    }
   }
 `;

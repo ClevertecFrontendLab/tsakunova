@@ -10,6 +10,6 @@ export const selectBooksWithSearchFilter = createSelector(
   (books, searchString) => {
     if (!searchString) return books;
 
-    return [...books].filter((book) => book.title.toLocaleLowerCase().includes(searchString));
+    return books.filter((book) => book.title.toLocaleLowerCase().includes(searchString));
   }
 );

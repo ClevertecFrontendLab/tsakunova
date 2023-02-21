@@ -17,8 +17,8 @@ import { Container, EmptyResult, HomeContainer } from './books.style';
 export const Books: FC = () => {
   const dispatch = useAppDispatch();
   const booksList = useTypedSelector(selectBooksWithSearchFilter);
-  const searchValue = useTypedSelector((state) => state.utils.searchString);
-  const isError = useTypedSelector((state) => state.books.isError);
+  const searchValue = useTypedSelector(({ utils }) => utils.searchString);
+  const isError = useTypedSelector(({ books }) => books.isError);
 
   useToast(ToastType.negative, ToastMessages.mainError, isError);
   const [activeView, setActiveView] = useState<ViewVariant>(ViewVariant.window);
@@ -46,7 +46,7 @@ export const Books: FC = () => {
       ) : (
         <EmptyResult data-test-id='empty-category'>{TitleVariant.emptyCategory}</EmptyResult>
       ),
-    [searchValue]
+    [searchValue.length]
   );
 
   return (

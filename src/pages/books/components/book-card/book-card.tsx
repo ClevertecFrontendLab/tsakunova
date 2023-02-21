@@ -25,7 +25,7 @@ export const BookCard: FC<BookProps> = ({ book: { image, id, rating, title, auth
   const { buttonType, buttonTitle } = getButtonStyles(booking?.order, booking?.dateOrder);
   const { card: Card, content: Content, image: Image } = getStyledComponentForBookCard(view);
   const { category } = useParams();
-  const searchValue = useTypedSelector((state) => state.utils.searchString);
+  const searchValue = useTypedSelector(({ utils }) => utils.searchString);
   const addLight = useCallback((str: string) => <HighlightMatches filter={searchValue} text={str} />, [searchValue]);
 
   const renderAboutBlock = useCallback(

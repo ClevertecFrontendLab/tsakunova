@@ -20,7 +20,7 @@ export const FilterList: FC<FilterListProps> = ({ onViewClick, typeView }) => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const isError = useTypedSelector(selectErrors);
   const dispatch = useAppDispatch();
-  const isDescending = useTypedSelector((store) => store.utils.isDescendingSort);
+  const isDescending = useTypedSelector(({ utils }) => utils.isDescendingSort);
 
   if (isError) return null;
 

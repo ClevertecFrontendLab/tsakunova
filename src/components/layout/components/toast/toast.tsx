@@ -9,7 +9,7 @@ import { CloseButton, Container, ToastInfo } from './toast.style';
 import { getToastStyles } from './toast.utils';
 
 export const Toast: FC = () => {
-  const toast = useTypedSelector((state) => state.utils.toast);
+  const toast = useTypedSelector(({ utils }) => utils.toast);
   const dispatch = useAppDispatch();
   const { icon: Icon, styledComponent: Component } = getToastStyles(toast?.toastType);
 

@@ -10,8 +10,7 @@ export const BookBreadcrumbs: FC = () => {
   const { category } = useParams<{ category: keyof typeof BookCategory }>();
   const categoryTitle = category ? BookCategory[category] : BookCategory.all;
 
-  const currentBook = useTypedSelector((state) => state.currentBook.currentBook);
-  const isLoading = useTypedSelector((state) => state.currentBook.isLoading);
+  const { currentBook, isLoading } = useTypedSelector((state) => state.currentBook);
 
   if (isLoading) return null;
 

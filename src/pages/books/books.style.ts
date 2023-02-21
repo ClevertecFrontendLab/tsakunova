@@ -26,6 +26,7 @@ export const EmptyResult = styled.h3`
   margin: 200px auto;
   font: ${(props) => props.theme.fonts.h3};
   color: ${(props) => props.theme.color.grey.black40};
+  text-align: center;
   @media ${devices.tablet} {
   }
   @media ${devices.mobile} {
