@@ -1,10 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { BookCategory } from 'types/enum';
 
 import { fetchCategories } from './categories-actions';
 import { CategoriesState } from './types';
 
 const initialState: CategoriesState = {
   categories: null,
+  currentCategory: BookCategory.all,
   isLoading: false,
   isError: false,
 };
@@ -18,6 +20,9 @@ export const categoriesSlice = createSlice({
     },
     hideCategoriesToast: (state) => {
       state.isError = false;
+    },
+    setCurrentCategory: (state, action) => {
+      state.currentCategory = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -37,6 +42,6 @@ export const categoriesSlice = createSlice({
   },
 });
 
-export const { resetCategories, hideCategoriesToast } = categoriesSlice.actions;
+export const { resetCategories, hideCategoriesToast, setCurrentCategory } = categoriesSlice.actions;
 
 export const categoriesReducer = categoriesSlice.reducer;

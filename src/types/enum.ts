@@ -11,6 +11,8 @@ export enum TitleVariant {
   searchPlaceholder = 'Поиск книги или автора…',
   notRating = 'ещё нет оценок',
   addRating = 'оценить книгу',
+  emptyCategory = 'В этой категории книг ещё нет',
+  emptySearch = 'По запросу ничего не найдено',
 }
 
 export enum ViewVariant {

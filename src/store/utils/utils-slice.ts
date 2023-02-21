@@ -4,6 +4,8 @@ import { UtilsState } from './types';
 
 const initialState: UtilsState = {
   toast: null,
+  isDescendingSort: true,
+  searchString: '',
 };
 
 export const utilsSlice = createSlice({
@@ -16,7 +18,13 @@ export const utilsSlice = createSlice({
     hideToast: (state) => {
       state.toast = null;
     },
+    setSortType: (state) => {
+      state.isDescendingSort = !state.isDescendingSort;
+    },
+    setSearchString: (state, action) => {
+      state.searchString = action.payload;
+    },
   },
 });
-export const { setToast, hideToast } = utilsSlice.actions;
+export const { setToast, hideToast, setSortType, setSearchString } = utilsSlice.actions;
 export const utilsReducer = utilsSlice.reducer;

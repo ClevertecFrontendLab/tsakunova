@@ -37,7 +37,6 @@ export const FullInfoSection: FC<FullInfoSectionProps> = ({
         <InfoRow title={BookInfoTitles.genre} content={categories} none320={true} />
         <InfoRow title={BookInfoTitles.weight} content={weight} />
         <InfoRow title={BookInfoTitles.ISBN} content={ISBN} />
-        {/* <InfoRow title={BookInfoTitles.restrictions} content={restrictions!} only320={true} /> */}
         <InfoRow title={BookInfoTitles.producer} content={producer} />
       </FullInfoColumn>
     </FullInfoContainer>

@@ -1,4 +1,4 @@
-import { FC, ReactNode, useCallback, useMemo, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import { DownSVG, UpSVG } from 'assets/icons';
 import { SeparationLine } from 'index.style';
 
@@ -22,11 +22,9 @@ export const BookSectionLayout: FC<LayoutProps> = ({
   withArrow = false,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(true);
-  const Arrow = useMemo(() => (isOpen ? UpSVG : DownSVG), [isOpen]);
+  const Arrow = isOpen ? UpSVG : DownSVG;
 
-  const expandSection = useCallback(() => {
-    if (withArrow) setIsOpen(!isOpen);
-  }, [isOpen, withArrow]);
+  const expandSection = () => withArrow && setIsOpen(!isOpen);
 
   return (
     <div>

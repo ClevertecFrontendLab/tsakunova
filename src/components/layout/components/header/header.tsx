@@ -1,4 +1,4 @@
-import { FC, useCallback } from 'react';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { LogoClevertec } from 'assets/icons';
 import { NavigationMenu } from 'components/navigation-menu';
@@ -16,9 +16,9 @@ type HeaderProps = {
 };
 
 export const Header: FC<HeaderProps> = ({ user, isOpenBurger, setIsOpenBurger }) => {
-  const burgerOpenHandler = useCallback(() => {
+  const burgerOpenHandler = () => {
     setIsOpenBurger(!isOpenBurger);
-  }, [isOpenBurger, setIsOpenBurger]);
+  };
 
   return (
     <Wrapper>

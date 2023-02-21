@@ -23,6 +23,7 @@ export type CategoriesDTO = {
   name: string;
   id: number;
   path: string;
+  count?: number;
 };
 
 export type ImagesType = {

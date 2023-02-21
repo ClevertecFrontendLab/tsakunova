@@ -19,8 +19,7 @@ import { BookContainer, ButtonContainer, InfoSection } from './book-page.style';
 export const BookPage: FC = () => {
   const { bookId } = useParams();
   const dispatch = useAppDispatch();
-  const { isLoading, isError } = useTypedSelector((state) => state.currentBook);
-  const currentBook = useTypedSelector((state) => state.currentBook.currentBook);
+  const { isLoading, isError, currentBook } = useTypedSelector((state) => state.currentBook);
 
   useToast(ToastType.negative, ToastMessages.mainError, isError);
 

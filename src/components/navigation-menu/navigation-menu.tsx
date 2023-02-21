@@ -1,7 +1,8 @@
-import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { NAVIGATION_MENU_LIST } from 'consts';
-import { useOnMount } from 'hooks/use-on-mount';
+import { useAppDispatch } from 'hooks/use-app-dispatch';
+import { setCurrentCategory } from 'store/categories/categories-slice';
 import { RouteNames } from 'types/enum';
 
 import { NavListItem } from './components/nav-list-item';
@@ -22,10 +23,7 @@ export const NavigationMenu: FC<NavMenuProps> = ({
   const [isBooksListOpen, setIsBooksListOpen] = useState<boolean>(false);
   const ref = useRef(null);
   const params = useParams();
-
-  useOnMount(() => {
-    if (activeRoute === RouteNames.books) setIsBooksListOpen(true);
-  });
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     if (activeRoute === RouteNames.books) setIsBooksListOpen(true);
@@ -49,30 +47,28 @@ export const NavigationMenu: FC<NavMenuProps> = ({
     [isBooksListOpen, setIsShowMenu]
   );
   const onPressCategory = useCallback(
-    (e: React.SyntheticEvent) => {
+    (e: React.SyntheticEvent, path: string) => {
       e.stopPropagation();
+      dispatch(setCurrentCategory(path));
       setIsShowMenu(false);
     },
-    [setIsShowMenu]
+    [dispatch, setIsShowMenu]
   );
 
-  const renderMenu = useCallback(
-    () =>
-      NAVIGATION_MENU_LIST.map((item) => (
-        <NavListItem
-          isBurgerMenu={isBurgerMenu}
-          key={item.route}
-          item={item}
-          activeRoute={activeRoute}
-          onPressRoute={onPressRoute}
-          onPressCategory={onPressCategory}
-          isBooksListOpen={isBooksListOpen}
-        />
-      )),
-    [activeRoute, isBooksListOpen, isBurgerMenu, onPressCategory, onPressRoute]
-  );
+  const renderMenu = () =>
+    NAVIGATION_MENU_LIST.map((item) => (
+      <NavListItem
+        isBurgerMenu={isBurgerMenu}
+        key={item.route}
+        item={item}
+        activeRoute={activeRoute}
+        onPressRoute={onPressRoute}
+        onPressCategory={onPressCategory}
+        isBooksListOpen={isBooksListOpen}
+      />
+    ));
 
-  const StyledComponent = useMemo(() => (isBurgerMenu ? BurgerMenuContainer : Container), [isBurgerMenu]);
+  const StyledComponent = isBurgerMenu ? BurgerMenuContainer : Container;
 
   return (
     <StyledComponent ref={ref} isShowMenu={isShowMenu} data-test-id={isBurgerMenu && 'burger-navigation'}>

@@ -1,11 +1,8 @@
-import { FC, useCallback, useMemo } from 'react';
-import { CoverCat } from 'assets/icons';
+import { FC } from 'react';
 import { PrimaryButton } from 'components/buttons/primary-button';
-import { BookSlider } from 'components/slider';
 import { BookSectionTitle } from 'types/enum';
 import { FullBookDTO } from 'types/types';
 import { getButtonStyles } from 'utils/get-button-styles';
-import { getImageURL } from 'utils/get-image-url';
 import { keyExtractor } from 'utils/key-extractor';
 
 import { BookSectionLayout } from '../book-section-layout';
@@ -17,8 +14,8 @@ import {
   ContentBook,
   ContentContainer,
   DescriptionSection,
-  ImageContainer,
 } from './book-about.style';
+import { ImagesSection } from './components';
 
 type BookAboutProps = {
   book: FullBookDTO;
@@ -31,32 +28,13 @@ export const BookAbout: FC<BookAboutProps> = ({
 }) => {
   const { buttonType, buttonTitle } = getButtonStyles(booking?.order, booking?.dateOrder);
 
-  const getImagesSection = useMemo(() => {
-    if (!images?.length)
-      return (
-        <ImageContainer>
-          <CoverCat />
-        </ImageContainer>
-      );
-
-    return images.length > 1 ? (
-      <BookSlider images={images} />
-    ) : (
-      <ImageContainer>
-        <img alt={title} src={getImageURL(images[0].url)} />
-      </ImageContainer>
-    );
-  }, [images, title]);
-  const renderAuthors = useCallback(
-    () => authors?.map((item, index) => <span key={keyExtractor(index)}>{item}</span>),
-    [authors]
-  );
+  const renderAuthors = () => authors?.map((item, index) => <span key={keyExtractor(index)}>{item}</span>);
 
   return (
     <BookAboutContainer>
-      {getImagesSection}
+      <ImagesSection images={images} />
       <ContentContainer>
-        <h3>{title}</h3>
+        <h3 data-test-id='book-title'>{title}</h3>
         <AboutAuthor>
           {renderAuthors()}, {issueYear}
         </AboutAuthor>

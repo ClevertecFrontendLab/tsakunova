@@ -7,6 +7,8 @@ type Props = {
   title: TitleVariant;
   icon: FC;
   isOpen?: boolean;
+  onPress?: () => void;
+  textForTest: string;
 };
 
 const WithIconButtonContainer = styled.button<{ isOpen: boolean }>`
@@ -47,8 +49,8 @@ const WithIconButtonContainer = styled.button<{ isOpen: boolean }>`
   }
 `;
 
-export const WithIconButton: FC<Props> = React.memo(({ title, icon: Icon, isOpen = true }) => (
-  <WithIconButtonContainer type='button' isOpen={isOpen}>
+export const WithIconButton: FC<Props> = React.memo(({ title, icon: Icon, isOpen = true, onPress, textForTest }) => (
+  <WithIconButtonContainer data-test-id={textForTest} type='button' isOpen={isOpen} onClick={onPress}>
     <Icon />
     <p>{title}</p>
   </WithIconButtonContainer>

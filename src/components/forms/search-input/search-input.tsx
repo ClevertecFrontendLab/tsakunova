@@ -1,6 +1,8 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { CloseSVG, SearchSVG } from 'assets/icons';
 import { CircleButton } from 'components/buttons/circle-button';
+import { useAppDispatch } from 'hooks/use-app-dispatch';
+import { setSearchString } from 'store/utils/utils-slice';
 import { TitleVariant, ViewVariant } from 'types/enum';
 
 import { CloseButton, SearchInputContainer, VisibleMobile } from './search-input.style';
@@ -12,16 +14,18 @@ type SearchInputProps = {
 
 export const SearchInput: FC<SearchInputProps> = ({ isOpen, setIsOpen }) => {
   const [currentValue, setCurrentValue] = useState('');
-  const searchInputRef = useRef<HTMLInputElement>(null);
   const [blur, setBlur] = useState(true);
+  const dispatch = useAppDispatch();
 
   const changeText = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentValue(event?.target?.value);
+    dispatch(setSearchString(event?.target?.value.toLocaleLowerCase()));
   };
 
-  useEffect(() => {
-    if (isOpen) searchInputRef?.current?.focus();
-  });
+  const onCloseClick = () => {
+    setBlur(true);
+    setIsOpen(false);
+  };
 
   return (
     <React.Fragment>
@@ -37,27 +41,21 @@ export const SearchInput: FC<SearchInputProps> = ({ isOpen, setIsOpen }) => {
           />
         )}
       </VisibleMobile>
-      <SearchInputContainer isOpen={isOpen} data-test-id='input-search'>
+      <SearchInputContainer isOpen={isOpen}>
         <input
+          data-test-id='input-search'
           onChange={changeText}
-          ref={searchInputRef}
           value={currentValue}
           type='text'
           onFocus={() => setBlur(false)}
           onBlur={() => {
             setIsOpen(false);
-            setBlur(true);
           }}
           placeholder={TitleVariant.searchPlaceholder}
         />
         <SearchSVG className='searchIcon' />
-        <CloseButton data-test-id='button-search-close' isBlur={blur}>
-          <CloseSVG
-            className='searchCancelIcon'
-            onClick={() => {
-              setIsOpen(false);
-            }}
-          />
+        <CloseButton data-test-id='button-search-close' isBlur={blur} onClick={onCloseClick}>
+          <CloseSVG className='searchCancelIcon' />
         </CloseButton>
       </SearchInputContainer>
     </React.Fragment>

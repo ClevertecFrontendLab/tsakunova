@@ -1,10 +1,12 @@
 import { FC, useState } from 'react';
-import { MenuSVG, SortAscendingSVG, SquareFourSVG } from 'assets/icons';
+import { MenuSVG, SortAscendingSVG, SortDescendingSVG, SquareFourSVG } from 'assets/icons';
 import { CircleButton } from 'components/buttons/circle-button';
 import { WithIconButton } from 'components/buttons/with-icon-button';
 import { SearchInput } from 'components/forms/search-input/search-input';
+import { useAppDispatch } from 'hooks/use-app-dispatch';
 import { useTypedSelector } from 'hooks/use-typed-selector';
-import { selectErrors } from 'store/selectors';
+import { selectErrors } from 'store/selectors/error-selector';
+import { setSortType } from 'store/utils/utils-slice';
 import { TitleVariant, ViewVariant } from 'types/enum';
 
 import { ButtonContainer, Container, DefaultButtonContainer } from './filter-list.style';
@@ -17,6 +19,8 @@ type FilterListProps = {
 export const FilterList: FC<FilterListProps> = ({ onViewClick, typeView }) => {
   const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const isError = useTypedSelector(selectErrors);
+  const dispatch = useAppDispatch();
+  const isDescending = useTypedSelector(({ utils }) => utils.isDescendingSort);
 
   if (isError) return null;
 
@@ -24,7 +28,13 @@ export const FilterList: FC<FilterListProps> = ({ onViewClick, typeView }) => {
     <Container>
       <ButtonContainer isSearchOpen={isSearchOpen}>
         <SearchInput isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
-        <WithIconButton title={TitleVariant.rating} isOpen={isSearchOpen} icon={SortAscendingSVG} />
+        <WithIconButton
+          textForTest='sort-rating-button'
+          title={TitleVariant.rating}
+          isOpen={isSearchOpen}
+          icon={isDescending ? SortAscendingSVG : SortDescendingSVG}
+          onPress={() => dispatch(setSortType())}
+        />
       </ButtonContainer>
       <DefaultButtonContainer isSearchOpen={isSearchOpen}>
         <CircleButton

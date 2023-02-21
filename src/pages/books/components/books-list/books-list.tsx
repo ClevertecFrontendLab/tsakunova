@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC } from 'react';
 import { ViewVariant } from 'types/enum';
 import { MainBookDTO } from 'types/types';
 
@@ -12,7 +12,7 @@ type BooksListProps = {
 };
 
 export const BookList: FC<BooksListProps> = ({ books, view }) => {
-  const ViewContainer = useMemo(() => (view === ViewVariant.window ? WindowView : ListView), [view]);
+  const ViewContainer = view === ViewVariant.window ? WindowView : ListView;
 
   return (
     <ViewContainer className={view}>

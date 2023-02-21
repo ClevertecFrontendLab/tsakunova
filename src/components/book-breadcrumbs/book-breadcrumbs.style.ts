@@ -15,15 +15,25 @@ export const BookBreadcrumbsWrapper = styled.div`
   align-items: center;
   background-color: ${(props) => props.theme.color.grey.black5};
   & p {
+    display: flex;
     span {
       color: ${(props) => props.theme.color.grey.black40};
       font: ${(props) => props.theme.fonts.bodySmall};
       padding-right: 36px;
-      position: relative;
       @media ${devices.mobile} {
         font: ${(props) => props.theme.fonts.infoSmall};
       }
-      &:not(:last-child)::after {
+    }
+    & a {
+      display: block;
+      position: relative;
+      color: ${(props) => props.theme.color.grey.black40};
+      font: ${(props) => props.theme.fonts.bodySmall};
+      padding-right: 36px;
+      @media ${devices.mobile} {
+        font: ${(props) => props.theme.fonts.infoSmall};
+      }
+      &::after {
         position: absolute;
         content: '/';
         top: 0;

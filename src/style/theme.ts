@@ -7,6 +7,7 @@ export const theme = {
       white: '#FFFFFF',
       dark30: 'rgba(54, 54, 54, 0.3)',
       hover: 'FF740F',
+      search: 'rgb(248, 54, 0)',
     },
     toast: {
       negative: '#FEEBEA',

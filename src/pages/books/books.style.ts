@@ -6,7 +6,8 @@ export const HomeContainer = styled.div`
   flex: 2;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 export const Container = styled.div`
