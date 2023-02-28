@@ -1,5 +1,5 @@
 import { FC, useCallback, useState } from 'react';
-import { Outlet, useMatch } from 'react-router-dom';
+import { Outlet, useLocation, useMatch } from 'react-router-dom';
 import { BookBreadcrumbs } from 'components/book-breadcrumbs';
 import { NavigationMenu } from 'components/navigation-menu';
 import { mockUser } from 'mocks/user.mock';
@@ -13,6 +13,11 @@ import { Container, MainContainer, MainWrapper, Overlay } from './layout.style';
 
 export const Layout: FC = () => {
   const pathBook = useMatch(`/${RouteNames.books}/:category/:bookId`);
+  const pathProfile = useMatch(`/${RouteNames.profile}/`);
+  const withMenu = !pathBook && !pathProfile;
+
+  console.log(withMenu);
+
   const [isOpenBurger, setIsOpenBurger] = useState<boolean>(false);
   const closeOverlay = useCallback(() => setIsOpenBurger(!isOpenBurger), [isOpenBurger]);
 
@@ -25,7 +30,7 @@ export const Layout: FC = () => {
       {pathBook && <BookBreadcrumbs />}
       <MainWrapper>
         <MainContainer>
-          {!pathBook && <NavigationMenu isBurgerMenu={false} />}
+          {withMenu && <NavigationMenu isBurgerMenu={false} />}
           <Outlet />
         </MainContainer>
       </MainWrapper>
