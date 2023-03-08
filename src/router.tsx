@@ -1,5 +1,9 @@
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from 'components/layout';
+import { Auth } from 'pages/auth';
+import { Authorization } from 'pages/auth/components/authorization';
+import { ForgotPassword } from 'pages/auth/components/forgot-password';
+import { Registration } from 'pages/auth/components/registration';
 import { BookPage } from 'pages/book';
 import { Books } from 'pages/books';
 import { Profile } from 'pages/profile';
@@ -44,9 +48,23 @@ const routes = createHashRouter([
         path: `/${RouteNames.profile}`,
         element: <Profile />,
       },
+    ],
+  },
+  {
+    path: '/',
+    element: <Auth />,
+    children: [
       {
-        path: `/${RouteNames.signOut}`,
-        element: <Books />,
+        path: `/${RouteNames.registration}`,
+        element: <Registration />,
+      },
+      {
+        path: `/${RouteNames.auth}`,
+        element: <Authorization />,
+      },
+      {
+        path: `/${RouteNames.forgotPass}`,
+        element: <ForgotPassword />,
       },
     ],
   },

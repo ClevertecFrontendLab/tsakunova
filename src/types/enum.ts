@@ -2,8 +2,47 @@ export enum ButtonType {
   primaryButton = 'primaryButton',
   secondaryButton = 'secondaryButton',
 }
+export enum FormButtonType {
+  button = 'button',
+  submit = 'submit',
+}
+
+export enum UserAPIFields {
+  email = 'email',
+  username = 'username',
+  password = 'password',
+  firstName = 'firstName',
+  lastName = 'lastName',
+  phone = 'phone',
+  identifier = 'identifier',
+}
 
 export enum TitleVariant {
+  profile = 'Профиль',
+  exit = 'Выход',
+  loginAfterRegistration = 'вход',
+  repeat = 'повторить',
+  repeatRegistration = 'назад к регистрации',
+  loginErrorTitle = 'Вход не выполнен',
+  loginErrorText = 'Что-то пошло не так. Попробуйте ещё раз',
+  regSuccessTitle = 'Регистрация успешна',
+  regSuccessText = 'Регистрация прошла успешно. Зайдите в личный кабинет, используя свои логин и пароль',
+  regErrorTitle = 'Данные не сохранились',
+  regErrorMessage = 'Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз',
+  regNotUniqueErrorText = 'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail',
+  forgotTitle = 'Восстановление пароля',
+  hasProfile = 'Есть учётная запись?',
+  loginTitle = 'Вход в личный кабинет',
+  forgot = 'Забыли логин или пароль?',
+  haveNotProfile = 'Нет учётной записи?',
+  notTrueLogin = 'Неверный логин или пароль!',
+  recovery = 'Восстановить?',
+  login = 'войти',
+  nextStep = 'следующий шаг',
+  lastStep = 'последний шаг',
+  registrationButton = 'зарегистрироваться',
+  cleverland = 'Cleverland',
+  registration = 'Регистрация',
   booking = 'Забронировать',
   busy = 'Занята до',
   booked = 'Забронирована',
@@ -24,12 +63,16 @@ export enum ViewVariant {
 }
 
 export enum RouteNames {
+  login = 'login',
   books = 'books',
   contract = 'contract',
   terms = 'terms',
   booksAll = 'all',
   profile = 'profile',
   signOut = 'signOut',
+  auth = 'auth',
+  registration = 'registration',
+  forgotPass = 'forgot-pass',
 }
 
 export enum RouteTestId {
@@ -85,4 +128,8 @@ export enum BookCategory {
   handbook = 'Справочники',
   fantasy = 'Фантастика',
   humor = 'Юмор',
+}
+
+export enum ErrorsMessages {
+  nameTaken = 'Email or Username are already taken',
 }

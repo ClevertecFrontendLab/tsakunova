@@ -1,12 +1,14 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-import { ButtonType } from 'types/enum';
+import { ButtonType, FormButtonType } from 'types/enum';
 
 type Props = {
   title: string;
   type?: ButtonType;
   disabled?: boolean;
   stylesClass?: string;
+  handlerType?: FormButtonType;
+  onClick?: () => void;
 };
 
 const PrimaryButtonContainer = styled.button`
@@ -70,8 +72,15 @@ const PrimaryButtonContainer = styled.button`
   }
 `;
 
-export const PrimaryButton: FC<Props> = React.memo(({ title, type, disabled, stylesClass }) => (
-  <PrimaryButtonContainer type='button' disabled={disabled} className={`${type} ${stylesClass}`}>
-    <p>{title}</p>
-  </PrimaryButtonContainer>
-));
+export const PrimaryButton: FC<Props> = React.memo(
+  ({ title, type, disabled, stylesClass, handlerType = FormButtonType.button, onClick }) => (
+    <PrimaryButtonContainer
+      onClick={onClick}
+      type={handlerType}
+      disabled={disabled}
+      className={`${type} ${stylesClass}`}
+    >
+      <p>{title}</p>
+    </PrimaryButtonContainer>
+  )
+);

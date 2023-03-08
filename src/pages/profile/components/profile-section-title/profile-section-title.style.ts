@@ -1,9 +1,6 @@
-import { devices } from 'consts';
 import styled from 'styled-components';
 
-export const Container = styled.div`
-  //  margin: 20px 0;
-`;
+export const Container = styled.div``;
 export const Title = styled.h4`
   font: ${(props) => props.theme.fonts.h4};
   margin-bottom: ${(props) => `${props.theme.size.default / 2}px`};
