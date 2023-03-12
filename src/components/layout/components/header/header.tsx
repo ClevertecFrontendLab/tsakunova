@@ -3,19 +3,22 @@ import { Link } from 'react-router-dom';
 import { LogoClevertec } from 'assets/icons';
 import { NavigationMenu } from 'components/navigation-menu';
 import { Wrapper } from 'index.style';
-import { UserDTO } from 'types/types';
+import { UserAPI } from 'types/types';
 
 import { BurgerMenu } from './components/ burger-menu';
 import { HeaderAuthorization } from './components/header-authorisation';
 import { HeaderContainer, LeftHeaderContainer, LogoContainer, MenuContainer, Title } from './header.style';
 
 type HeaderProps = {
-  user: UserDTO;
+  user: UserAPI | null;
   isOpenBurger: boolean;
   setIsOpenBurger: (value: boolean) => void;
+  isOpenUserMenu: boolean;
+  setIsOpenUserMenu: (value: boolean) => void;
 };
 
-export const Header: FC<HeaderProps> = ({ user, isOpenBurger, setIsOpenBurger }) => {
+export const Header: FC<HeaderProps> = ({ user, isOpenBurger, setIsOpenBurger, isOpenUserMenu, setIsOpenUserMenu }) => {
+  if (!user) return null;
   const burgerOpenHandler = () => {
     setIsOpenBurger(!isOpenBurger);
   };
@@ -41,7 +44,7 @@ export const Header: FC<HeaderProps> = ({ user, isOpenBurger, setIsOpenBurger })
 
           <Title>Библиотека</Title>
         </LeftHeaderContainer>
-        <HeaderAuthorization user={user} />
+        <HeaderAuthorization isOpen={isOpenUserMenu} setIsOpen={setIsOpenUserMenu} user={user} />
       </HeaderContainer>
     </Wrapper>
   );

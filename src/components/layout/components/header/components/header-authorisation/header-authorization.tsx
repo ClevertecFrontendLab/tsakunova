@@ -1,19 +1,29 @@
-import { FC } from 'react';
-import { Link } from 'react-router-dom';
+import React, { FC } from 'react';
+import { userAvatar } from 'assets/images';
 import { AvatarImg } from 'components/avatar-img';
-import { UserDTO } from 'types/types';
+import { UserAPI } from 'types/types';
+
+import { UserMenu } from '../user-menu';
 
 import { AuthorizationContainer, Subtitle } from './header-authorisation.style';
 
 type HeaderAuthorizationProps = {
-  user: UserDTO;
+  user: UserAPI;
+  isOpen: boolean;
+  setIsOpen: (value: boolean) => void;
 };
 
-export const HeaderAuthorization: FC<HeaderAuthorizationProps> = ({ user: { name, avatarLink = '' } }) => (
-  <AuthorizationContainer>
-    <Subtitle>Привет, {name}!</Subtitle>
-    <Link to='/'>
+export const HeaderAuthorization: FC<HeaderAuthorizationProps> = ({
+  user: { firstName, avatarLink = userAvatar },
+  isOpen,
+  setIsOpen,
+}) => (
+  <React.Fragment>
+    <AuthorizationContainer onClick={() => setIsOpen(!isOpen)}>
+      <Subtitle>Привет, {firstName}!</Subtitle>
+
       <AvatarImg size='58px' bgImage={avatarLink} />
-    </Link>
-  </AuthorizationContainer>
+    </AuthorizationContainer>
+    <UserMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+  </React.Fragment>
 );

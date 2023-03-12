@@ -26,13 +26,16 @@ export const BooksThemeList: FC<BooksThemeListProps> = ({ list, isBurgerMenu, is
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const categories = useTypedSelector(selectBooksInCategoryWithCount || []);
+  const user = useTypedSelector(({ login }) => login.user);
   const isError = useTypedSelector(selectErrors);
 
   useToast(ToastType.negative, ToastMessages.mainError, isError);
 
   useEffect(() => {
-    dispatch(fetchCategories());
-  }, [dispatch]);
+    if (user) {
+      dispatch(fetchCategories());
+    }
+  }, [dispatch, user]);
 
   useEffect((): (() => void) => () => dispatch(resetCategories()), [dispatch]);
 

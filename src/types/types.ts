@@ -4,6 +4,39 @@ export type UserDTO = {
   name: string;
   avatarLink?: string;
 };
+
+export type ResetPasswordData = {
+  password: string;
+  passwordConfirmation: string;
+  code: string;
+};
+
+export type RegistrationUserData = {
+  email: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+};
+
+export type UserAPI = {
+  jwt: string;
+  id: string;
+  provider: string;
+  confirmed: boolean;
+  blocked: boolean;
+  createdAt: string;
+  updatedAt: string;
+  email: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  avatarLink?: string;
+};
+
 export type NavMenuItemList = {
   listTitle: string;
   testId: RouteTestId;

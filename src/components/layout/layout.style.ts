@@ -20,7 +20,6 @@ export const Container = styled.div<{ isOpenMenu: boolean }>`
   }
 `;
 export const MainContainer = styled.div`
-  flex: 1 0 auto;
   display: grid;
   grid-template-columns: 285px auto;
   @media ${devices.tablet} {

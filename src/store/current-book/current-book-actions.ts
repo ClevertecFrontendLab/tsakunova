@@ -1,9 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { BASE_API_URL } from 'store/const';
+import { ApiPath, axiosInstance } from 'api/api';
 import { FullBookDTO } from 'types/types';
 
 export const fetchCurrentBook = createAsyncThunk(
   '/currentBook',
-  async (id: string) => (await axios.get<FullBookDTO>(`${BASE_API_URL}books/${id}`)).data
+  async (id: string) => (await axiosInstance.get<FullBookDTO>(`${ApiPath.books}/${id}`)).data
 );

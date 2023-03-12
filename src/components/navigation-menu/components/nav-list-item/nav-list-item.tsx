@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { DownSVG, UpSVG } from 'assets/icons';
+import { useAppDispatch } from 'hooks/use-app-dispatch';
+import { logout } from 'store/login/login-slice';
 import { RouteNames, TestIdType } from 'types/enum';
 import { NavMenuType } from 'types/types';
 
@@ -30,6 +32,7 @@ export const NavListItem: FC<NavListItemProps> = ({
   const getLinkStyle = (isActive: boolean) =>
     isActive || (item.route === RouteNames.books && pathname === '/') ? 'active' : undefined;
   const Arrow = isBooksListOpen ? UpSVG : DownSVG;
+  const dispatch = useAppDispatch();
 
   if (item.isOnlyBurger && !isBurgerMenu) return null;
 
@@ -38,8 +41,12 @@ export const NavListItem: FC<NavListItemProps> = ({
       {item.route === RouteNames.profile && <BeforeBlockLine />}
       <NavListItemLi onClick={(e) => onPressRoute(item.route, e)}>
         <CurrentLink data-test-id={testId}>
-          <CurrentActiveLink>
-            <NavLink to={`/${item.route}`} className={({ isActive }) => getLinkStyle(isActive)}>
+          <CurrentActiveLink data-test-id={item.route === RouteNames.signOut && 'exit-button'}>
+            <NavLink
+              onClick={() => (item.route === RouteNames.signOut ? dispatch(logout()) : null)}
+              to={item.route === RouteNames.signOut ? `/${RouteNames.auth}` : `/${item.route}`}
+              className={({ isActive }) => getLinkStyle(isActive)}
+            >
               <LinkContent>
                 {item.title} {item.list && activeRoute === RouteNames.books && <Arrow />}
               </LinkContent>

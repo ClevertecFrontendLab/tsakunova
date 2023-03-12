@@ -1,7 +1,12 @@
 import { createHashRouter, RouterProvider } from 'react-router-dom';
 import { Layout } from 'components/layout';
+import { Auth } from 'pages/auth';
+import { Authorization } from 'pages/auth/components/authorization';
+import { ForgotPassword } from 'pages/auth/components/forgot-password';
+import { Registration } from 'pages/auth/components/registration';
 import { BookPage } from 'pages/book';
 import { Books } from 'pages/books';
+import { Profile } from 'pages/profile';
 import { ContractList } from 'pages/terms-and-contract/contract-list/contract-list';
 import { TermsList } from 'pages/terms-and-contract/terms-list/terms-list';
 import { RouteNames } from 'types/enum';
@@ -41,11 +46,25 @@ const routes = createHashRouter([
       },
       {
         path: `/${RouteNames.profile}`,
-        element: <Books />,
+        element: <Profile />,
+      },
+    ],
+  },
+  {
+    path: '/',
+    element: <Auth />,
+    children: [
+      {
+        path: `/${RouteNames.registration}`,
+        element: <Registration />,
       },
       {
-        path: `/${RouteNames.signOut}`,
-        element: <Books />,
+        path: `/${RouteNames.auth}`,
+        element: <Authorization />,
+      },
+      {
+        path: `/${RouteNames.forgotPass}`,
+        element: <ForgotPassword />,
       },
     ],
   },

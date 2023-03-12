@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const HeaderContainer = styled.div`
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   margin-top: ${(props) => `${props.theme.size.default * 2}px`};
