@@ -5,6 +5,7 @@ export const AuthorizationContainer = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  overflow: hidden;
   gap: ${(props) => `${props.theme.size.default}px`};
 
   @media ${devices.tablet} {

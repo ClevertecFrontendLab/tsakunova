@@ -13,9 +13,11 @@ type HeaderProps = {
   user: UserAPI | null;
   isOpenBurger: boolean;
   setIsOpenBurger: (value: boolean) => void;
+  isOpenUserMenu: boolean;
+  setIsOpenUserMenu: (value: boolean) => void;
 };
 
-export const Header: FC<HeaderProps> = ({ user, isOpenBurger, setIsOpenBurger }) => {
+export const Header: FC<HeaderProps> = ({ user, isOpenBurger, setIsOpenBurger, isOpenUserMenu, setIsOpenUserMenu }) => {
   if (!user) return null;
   const burgerOpenHandler = () => {
     setIsOpenBurger(!isOpenBurger);
@@ -42,7 +44,7 @@ export const Header: FC<HeaderProps> = ({ user, isOpenBurger, setIsOpenBurger })
 
           <Title>Библиотека</Title>
         </LeftHeaderContainer>
-        <HeaderAuthorization user={user} />
+        <HeaderAuthorization isOpen={isOpenUserMenu} setIsOpen={setIsOpenUserMenu} user={user} />
       </HeaderContainer>
     </Wrapper>
   );

@@ -4,4 +4,5 @@ export type LoginState = {
   user: UserAPI | null;
   isLoading: boolean;
   isError: boolean;
+  is400Status: boolean;
 };

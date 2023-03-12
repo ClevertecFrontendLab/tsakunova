@@ -1,3 +1,4 @@
+import { devices } from 'consts';
 import styled from 'styled-components';
 
 export const ForgotSection = styled.div`
@@ -7,6 +8,7 @@ export const ForgotSection = styled.div`
   color: ${(props) => props.theme.color.grey.black40};
   margin-left: ${(props) => `${props.theme.size.default}px`};
   & a {
+    display: block;
     text-decoration: none;
   }
 `;
@@ -20,4 +22,11 @@ export const EyeToggler = styled.button`
 
 export const Container = styled.div`
   padding: 48px 52px;
+  @media ${devices.mobile} {
+    padding: 24px 16px;
+  }
+`;
+
+export const ForgotText = styled.p`
+  color: ${(props) => props.theme.color.main.error};
 `;

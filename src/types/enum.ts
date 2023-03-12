@@ -11,6 +11,7 @@ export enum UserAPIFields {
   email = 'email',
   username = 'username',
   password = 'password',
+  repeatPassword = 'passwordConfirmation',
   firstName = 'firstName',
   lastName = 'lastName',
   phone = 'phone',
@@ -31,12 +32,17 @@ export enum TitleVariant {
   regErrorMessage = 'Что-то пошло не так и ваша регистрация не завершилась. Попробуйте ещё раз',
   regNotUniqueErrorText = 'Такой логин или e-mail уже записан в системе. Попробуйте зарегистрироваться по другому логину или e-mail',
   forgotTitle = 'Восстановление пароля',
+  emailSentTitle = 'Письмо выслано',
+  emailSentText = 'Перейдите в вашу почту, чтобы воспользоваться подсказками по восстановлению пароля',
+  newPassSuccessText = 'Зайдите в личный кабинет, используя свои логин и новый пароль',
+  newPassButton = 'сохранить изменения',
+  newPassSuccessTitle = 'Новые данные сохранены',
   hasProfile = 'Есть учётная запись?',
-  loginTitle = 'Вход в личный кабинет',
+  loginTitle = 'Bход в личный кабинет',
   forgot = 'Забыли логин или пароль?',
   haveNotProfile = 'Нет учётной записи?',
   notTrueLogin = 'Неверный логин или пароль!',
-  recovery = 'Восстановить?',
+  recovery = 'Восстановить',
   login = 'войти',
   nextStep = 'следующий шаг',
   lastStep = 'последний шаг',
@@ -132,4 +138,15 @@ export enum BookCategory {
 
 export enum ErrorsMessages {
   nameTaken = 'Email or Username are already taken',
+}
+
+export enum ValidationErrors {
+  emptyField = 'Поле не может быть пустым',
+  passRepeat = 'Пароли не совпадают',
+  latin = 'латинский алфавит',
+  number = 'цифры',
+  length = 'не менее 8 символов',
+  upperCase = 'с заглавной буквой',
+  passNumber = 'цифрой',
+  email = 'Введите корректный e-mail',
 }

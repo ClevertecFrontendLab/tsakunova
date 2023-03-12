@@ -6,6 +6,7 @@ export { ReactComponent as IconLinkedin } from './icon-linkedin.svg';
 export { ReactComponent as IconVK } from './icon-vk.svg';
 export { ReactComponent as ArrowRight } from './arrowRight.svg';
 export { ReactComponent as ArrowLeft } from './arrowLeft.svg';
+export { ReactComponent as Checkmark } from './checkmark.svg';
 export { ReactComponent as MenuSVG } from './menu.svg';
 export { ReactComponent as EyeOpen } from './eyeOpen.svg';
 export { ReactComponent as EyeClosed } from './eyeClosed.svg';

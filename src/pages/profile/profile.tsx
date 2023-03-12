@@ -1,5 +1,4 @@
 import { FC } from 'react';
-import { Wrapper } from 'index.style';
 
 import { ContractSection } from './components/contract-section';
 import { CredentialsSection } from './components/credentials-section';

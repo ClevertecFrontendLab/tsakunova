@@ -7,40 +7,40 @@ const initialState: RegistrationState = {
   user: null,
   isLoading: false,
   isError: false,
-  errorMessage: null,
+  is400Status: false,
 };
 
 export const registrationSlice = createSlice({
   name: 'registration',
   initialState,
   reducers: {
-    reset: (state) => {
+    resetRegistration: (state) => {
       state.user = null;
-      state.isLoading = true;
+      state.isLoading = false;
       state.isError = false;
-      state.errorMessage = null;
+      state.is400Status = false;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(registrationRequest.pending, (state) => {
       state.isLoading = true;
       state.isError = false;
-      state.errorMessage = null;
+      state.is400Status = false;
     });
     builder.addCase(registrationRequest.fulfilled, (state, action) => {
       state.user = action.payload;
       state.isLoading = false;
       state.isError = false;
-      state.errorMessage = null;
+      state.is400Status = false;
     });
     builder.addCase(registrationRequest.rejected, (state, action) => {
       state.isLoading = false;
       state.isError = true;
-      state.errorMessage = action.error.message || '';
+      state.is400Status = action.payload === 400;
     });
   },
 });
 
-export const { reset } = registrationSlice.actions;
+export const { resetRegistration } = registrationSlice.actions;
 
 export const registrationReducer = registrationSlice.reducer;

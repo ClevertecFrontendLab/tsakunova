@@ -1,10 +1,9 @@
 import { FC, useCallback, useState } from 'react';
-import { Outlet, useLocation, useMatch } from 'react-router-dom';
+import { useMatch } from 'react-router-dom';
 import { BookBreadcrumbs } from 'components/book-breadcrumbs';
 import { NavigationMenu } from 'components/navigation-menu';
 import { PrivateRouter } from 'components/private/private';
 import { useTypedSelector } from 'hooks/use-typed-selector';
-import { mockUser } from 'mocks/user.mock';
 import { RouteNames } from 'types/enum';
 
 import { Footer } from './components/footer';
@@ -18,7 +17,7 @@ export const Layout: FC = () => {
   const pathProfile = useMatch(`/${RouteNames.profile}/`);
   const withMenu = !pathBook && !pathProfile;
   const user = useTypedSelector(({ login }) => login.user);
-
+  const [isOpenUserMenu, setIsOpenUserMenu] = useState<boolean>(false);
   const [isOpenBurger, setIsOpenBurger] = useState<boolean>(false);
   const closeOverlay = useCallback(() => setIsOpenBurger(!isOpenBurger), [isOpenBurger]);
 
@@ -27,7 +26,15 @@ export const Layout: FC = () => {
       <Loader />
       <Toast />
       <Overlay isShowMenu={isOpenBurger} onClick={closeOverlay} />
-      {user && <Header user={user} setIsOpenBurger={setIsOpenBurger} isOpenBurger={isOpenBurger} />}
+      {user && (
+        <Header
+          isOpenUserMenu={isOpenUserMenu}
+          setIsOpenUserMenu={setIsOpenUserMenu}
+          user={user}
+          setIsOpenBurger={setIsOpenBurger}
+          isOpenBurger={isOpenBurger}
+        />
+      )}
       {pathBook && <BookBreadcrumbs />}
       <MainWrapper>
         <MainContainer>

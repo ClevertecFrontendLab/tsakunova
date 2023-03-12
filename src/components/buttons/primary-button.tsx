@@ -19,16 +19,17 @@ const PrimaryButtonContainer = styled.button`
   padding: ${(props) => props.theme.size.button.padding};
   border-radius: ${(props) => props.theme.size.button.borderRadius};
   cursor: pointer;
+  font: ${(props) => props.theme.fonts.buttonSmall};
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
   & p {
-    font: ${(props) => props.theme.fonts.buttonSmall};
-    letter-spacing: 0.2px;
-    text-transform: uppercase;
+    width: 100%;
   }
   &.primaryButton {
     background: ${(props) => props.theme.color.button.hover};
     border: none;
+    color: ${(props) => props.theme.color.main.white};
     & p {
-      color: ${(props) => props.theme.color.main.white};
     }
     &:hover {
       border: ${(props) => `1px solid ${props.theme.color.main.hover}`};
@@ -45,8 +46,8 @@ const PrimaryButtonContainer = styled.button`
   &.secondaryButton {
     background: ${(props) => props.theme.color.main.white};
     border: ${(props) => `1px solid ${props.theme.color.grey.black20}`};
+    color: ${(props) => props.theme.color.main.dark};
     & p {
-      color: ${(props) => props.theme.color.main.dark};
     }
     &:hover {
       border: ${(props) => `1px solid ${props.theme.color.grey.black40}`};
@@ -60,8 +61,8 @@ const PrimaryButtonContainer = styled.button`
       border: ${(props) => `1px solid ${props.theme.color.grey.black20}`};
       background: ${(props) => props.theme.color.grey.black5};
       cursor: not-allowed;
+      color: ${(props) => `${props.theme.color.grey.black40}`};
       p {
-        color: ${(props) => `${props.theme.color.grey.black40}`};
       }
       &:hover {
         box-shadow: none;
@@ -73,14 +74,14 @@ const PrimaryButtonContainer = styled.button`
 `;
 
 export const PrimaryButton: FC<Props> = React.memo(
-  ({ title, type, disabled, stylesClass, handlerType = FormButtonType.button, onClick }) => (
+  ({ title, type, disabled = false, stylesClass, handlerType = FormButtonType.button, onClick }) => (
     <PrimaryButtonContainer
       onClick={onClick}
       type={handlerType}
       disabled={disabled}
       className={`${type} ${stylesClass}`}
     >
-      <p>{title}</p>
+      {title}
     </PrimaryButtonContainer>
   )
 );

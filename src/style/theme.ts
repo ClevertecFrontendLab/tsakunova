@@ -8,6 +8,7 @@ export const theme = {
       dark30: 'rgba(54, 54, 54, 0.3)',
       hover: 'FF740F',
       search: 'rgb(248, 54, 0)',
+      error: 'rgb(244, 44, 79)',
     },
     toast: {
       negative: '#FEEBEA',

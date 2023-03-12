@@ -1,3 +1,4 @@
+import { devices } from 'consts';
 import styled from 'styled-components';
 
 export const ForgotSection = styled.div`
@@ -29,4 +30,10 @@ export const BlockTitleWithBG = styled.div`
 `;
 export const StyledForm = styled.form`
   padding: 32px 56px 48px;
+  & h4 {
+    margin-bottom: 32px;
+  }
+  @media ${devices.mobile} {
+    padding: 32px 16px 51px;
+  }
 `;

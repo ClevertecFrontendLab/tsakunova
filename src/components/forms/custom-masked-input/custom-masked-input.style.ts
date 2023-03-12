@@ -17,7 +17,7 @@ export const InputContainer = styled.div<{ isIntroLabel: boolean }>`
 export const InputLine = styled.div<{ isError: boolean | undefined }>`
   width: 100%;
   height: 1px;
-  background-color: ${(props) => (props.isError ? props.theme.color.main.accent : props.theme.color.grey.black20)};
+  background-color: ${(props) => (props.isError ? props.theme.color.main.error : props.theme.color.grey.black20)};
 `;
 
 export const TextInput = styled.input`
@@ -51,8 +51,8 @@ export const EyeToggler = styled.button`
   margin: 0;
 `;
 
-export const IconsContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 13px;
+export const StyledInput = styled.input`
+  background-color: transparent;
+  border: none;
+  outline: none;
 `;

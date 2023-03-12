@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import { registrationReducer, registrationSlice } from './auth/registration-slice';
+import { forgotReducer } from './auth/forgor/forgot-slice';
+import { registrationReducer } from './auth/registration/registration-slice';
 import { booksReducer } from './books/books-slice';
 import { categoriesReducer } from './categories/categories-slice';
 import { currentBookReducer } from './current-book/current-book-slice';
@@ -15,6 +16,7 @@ export const store = configureStore({
     utils: utilsReducer,
     login: loginReducer,
     registration: registrationReducer,
+    forgot: forgotReducer,
   },
 });
 
