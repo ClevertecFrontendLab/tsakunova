@@ -47,6 +47,28 @@ export const FORM_INPUT_TEXT = {
   },
 };
 
+export const PHONE_MASK = [
+  '+',
+  '3',
+  '7',
+  '5',
+  ' ',
+  '(',
+  /2|4|3/,
+  /9|5|4|3/,
+  ')',
+  ' ',
+  /\d/,
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+  '-',
+  /\d/,
+  /\d/,
+];
+
 export const registerStepOneValidation = {
   [UserAPIFields.username]: {
     isStringValue: (value: string) => /(?=.*[A-Za-z]).{1,}/.test(value),

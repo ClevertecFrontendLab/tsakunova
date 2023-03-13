@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Control, Controller, FieldErrors, FieldValues, UseFormWatch } from 'react-hook-form';
 import MaskedInput from 'react-text-mask';
-import { FORM_INPUT_TEXT, registerStepThreeValidation } from 'pages/auth/const';
+import { FORM_INPUT_TEXT, PHONE_MASK, registerStepThreeValidation } from 'pages/auth/const';
 import { UserAPIFields, ValidationErrors } from 'types/enum';
 
 import {
@@ -38,27 +38,7 @@ export const CustomMaskedInput: FC<CustomInputProps> = ({ watch, errors, control
             render={({ field: { onChange, onBlur, value } }) => (
               <MaskedInput
                 name={UserAPIFields.phone}
-                mask={[
-                  '+',
-                  '3',
-                  '7',
-                  '5',
-                  ' ',
-                  '(',
-                  /2|4|3/,
-                  /9|5|4|3/,
-                  ')',
-                  ' ',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  '-',
-                  /\d/,
-                  /\d/,
-                  '-',
-                  /\d/,
-                  /\d/,
-                ]}
+                mask={PHONE_MASK}
                 value={value}
                 style={inputStyles}
                 keepCharPositions={true}
